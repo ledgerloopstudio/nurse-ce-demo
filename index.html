@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Nurse CE &amp; Licence Renewal Tracker</title>
+<title>Licensure Hours &amp; CE Tracker</title>
 <style>
 :root{
  --ink:#101d26; --ink2:#1b2a36; --paper:#f7f5ef; --card:#ffffff; --line:#dfe4e0;
@@ -33,7 +33,7 @@ h2{margin:0 0 4px;font-size:20px;letter-spacing:-.2px}
 .sub{color:var(--muted);font-size:13px;margin-bottom:16px}
 .grid{display:grid;gap:14px}
 .g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
-.g3{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
 .g4{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:15px;box-shadow:var(--sh)}
 .card h3{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)}
@@ -67,16 +67,16 @@ tr:last-child td{border-bottom:none}
 .bar{height:9px;background:var(--chip);border-radius:99px;overflow:hidden}
 .bar i{display:block;height:100%;background:var(--acc);border-radius:99px}
 .bar i.amber{background:var(--amber)} .bar i.bad{background:var(--red)}
-.barrow{display:grid;grid-template-columns:200px 1fr 84px;gap:10px;align-items:center;
+.barrow{display:grid;grid-template-columns:170px 1fr 74px;gap:10px;align-items:center;
  font-size:13px;margin-bottom:9px}
 label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin:0 0 4px}
 input,select,textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:9px;
  background:var(--paper);color:var(--ink);font:inherit;font-size:13.5px}
-textarea{min-height:60px;resize:vertical}
+textarea{min-height:64px;resize:vertical}
 .fgrid{display:grid;gap:11px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
 .modal{position:fixed;inset:0;background:rgba(9,16,21,.55);display:flex;align-items:flex-start;
  justify-content:center;padding:26px 14px;z-index:99;overflow:auto}
-.sheet{background:var(--card);border-radius:14px;max-width:680px;width:100%;padding:19px;
+.sheet{background:var(--card);border-radius:14px;max-width:660px;width:100%;padding:19px;
  box-shadow:0 18px 50px rgba(0,0,0,.3)}
 .sheet h3{margin:0 0 14px;font-size:17px;text-transform:none;letter-spacing:0;color:var(--ink)}
 .empty{padding:22px;text-align:center;color:var(--muted);font-size:13.5px}
@@ -85,15 +85,13 @@ textarea{min-height:60px;resize:vertical}
 .legalbox{border:1px solid var(--gold);border-radius:10px;padding:11px 13px;background:var(--chip);
  font-size:12.5px;color:var(--ink2);margin-bottom:14px}
 .legalbox b{color:var(--ink)}
-.checkrow{display:flex;align-items:center;gap:8px;padding:6px 8px;border:1px solid var(--line);
- border-radius:8px;margin-bottom:6px;font-size:13px}
-.checkrow input{width:auto;margin:0}
 .sheetprint{background:#fff;color:#101d26;padding:26px;border-radius:10px;border:1px solid #dfe4e0}
 .sheetprint h4{margin:0 0 3px;font-size:17px}
 .sheetprint .psub{font-size:12px;color:#5a6b78;margin-bottom:15px}
 .sheetprint table{font-size:12.5px}
 .sheetprint th,.sheetprint td{border-bottom:1px solid #e6eae7;color:#101d26}
-.sheetprint h5{margin:18px 0 6px;font-size:13px}
+.sigline{margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.sigline div{border-top:1px solid #101d26;padding-top:5px;font-size:11.5px;color:#5a6b78}
 @media print{
  .top,.noprint{display:none!important}
  .wrap{padding:0;max-width:none}
@@ -105,60 +103,80 @@ textarea{min-height:60px;resize:vertical}
 .demo-banner .x{position:absolute;right:10px;top:6px;background:none;border:none;color:#fff;font:inherit;cursor:pointer;opacity:.85;padding:4px 8px}
 .demo-banner .x:hover{opacity:1}
 @media print{.demo-banner{display:none!important}}
+.buildstamp{max-width:1180px;margin:0 auto;padding:4px 22px 30px;color:#8A9AA5;font-size:11px;letter-spacing:.04em;text-align:right}
 </style></head>
 <body>
-<div class="demo-banner" id="demoBanner">DEMO — example data, add up to 15 of your own CE entries and see whether it thinks the way you do. Nothing is saved permanently and it can reset any time. <a href="https://www.etsy.com/shop/LedgerLoopStudio" target="_blank" rel="noopener">Buy the full version</a> for your own unlimited, permanent copy.<button class="x" onclick="document.getElementById('demoBanner').style.display='none'" aria-label="Dismiss">✕</button></div>
+<div class="demo-banner" id="demoBanner">DEMO — example data, add up to 15 of your own hour entries and see whether it thinks the way you do. Nothing is saved permanently and it can reset any time. <a href="https://www.etsy.com/shop/LedgerLoopStudio" target="_blank" rel="noopener">Buy the full version</a> for your own unlimited, permanent copy.<button class="x" onclick="document.getElementById('demoBanner').style.display='none'" aria-label="Dismiss">✕</button></div>
 <div class="top">
-  <div class="brand"><span class="dot"></span><span>Nurse CE &amp; Licence Tracker<small>LEDGERLOOPSTUDIO</small></span></div>
+  <div class="brand"><span class="dot"></span><span>Licensure Hours &amp; CE Tracker<small>LEDGERLOOPSTUDIO</small></span></div>
   <div class="tabs" id="tabs"></div>
   <button class="tab" data-toggledark="1">☾ Dark</button>
 </div>
 <div class="wrap" id="app"></div>
+<div class="buildstamp noprint">Licensure Hours &amp; CE Tracker &middot; build 2026-09-18 &middot; LedgerLoopStudio</div>
 
 <script id="logic">
 /* ============================================================================
    PURE LOGIC — no DOM. Plain data in, plain data out, unit-testable.
-
-   THE HARD PROBLEM THIS SOLVES: one CE activity can count toward several
-   licences at once, and each licence has its own cycle, its own hour total and
-   its own mandatory topics. A spreadsheet forces you to duplicate the row per
-   licence and then keep the duplicates in step. Here a CE entry carries a LIST
-   of licence ids, and every licence is totalled independently from the same
-   source rows.
    ========================================================================== */
 
 /* ---------------------------------------------------------------------------
-   TOPIC LIBRARY AND PRESETS — STARTING POINTS ONLY. EDIT FREELY.
-   Continuing-education requirements are set by each state board, differ by
-   licence type, and change. Nothing below is a statement of any board's current
-   rules. Confirm every figure with your own board.
+   REQUIREMENT PRESETS — STARTING POINTS ONLY. EDIT FREELY.
+   Licensure and continuing-education requirements are set by your own state or
+   provincial board, differ by licence type, and change. The presets below are
+   common patterns to start from, NOT a statement of any board's current rules.
+   Always confirm every number against your own board before relying on it.
    Last reviewed by the author: 2026-09-17.
    --------------------------------------------------------------------------- */
 var CRITERIA_REVIEWED = "2026-09-17";
 
-var TOPICS = [
-  { id: "general",      label: "General / clinical practice" },
-  { id: "pharmacology", label: "Pharmacology" },
-  { id: "ethics",       label: "Ethics & professional boundaries" },
-  { id: "painopioid",   label: "Pain management / opioids" },
-  { id: "trafficking",  label: "Human trafficking awareness" },
-  { id: "abuse",        label: "Child / elder abuse recognition" },
-  { id: "infection",    label: "Infection control" },
-  { id: "implicitbias", label: "Implicit bias" },
-  { id: "suicide",      label: "Suicide prevention" },
-  { id: "jurisprudence",label: "Jurisprudence / law & rules" },
-  { id: "other",        label: "Other approved" }
+var PRESETS = [
+  {
+    id: "lcsw", label: "Clinical social work — common pattern",
+    totalHours: 3000, directHours: 1200,
+    supervisionHours: 100, individualPct: 50,
+    minMonths: 24, ceHoursPerCycle: 30, ceEthicsHours: 3, cycleMonths: 24
+  },
+  {
+    id: "lmft", label: "Marriage & family therapy — common pattern",
+    totalHours: 3000, directHours: 1500,
+    supervisionHours: 200, individualPct: 50,
+    minMonths: 24, ceHoursPerCycle: 30, ceEthicsHours: 6, cycleMonths: 24
+  },
+  {
+    id: "lpc", label: "Professional counselling — common pattern",
+    totalHours: 3000, directHours: 1200,
+    supervisionHours: 100, individualPct: 50,
+    minMonths: 24, ceHoursPerCycle: 40, ceEthicsHours: 6, cycleMonths: 24
+  },
+  {
+    id: "custom", label: "Custom — enter your own numbers",
+    totalHours: 3000, directHours: 1200,
+    supervisionHours: 100, individualPct: 50,
+    minMonths: 24, ceHoursPerCycle: 30, ceEthicsHours: 3, cycleMonths: 24
+  }
 ];
 
-var LICENCE_TYPES = ["RN", "LPN / LVN", "APRN", "Nurse Practitioner", "CNS", "CRNA", "CNM", "Other"];
+var HOUR_KINDS = [
+  { id: "direct",   label: "Direct client contact",        direct: true },
+  { id: "group",    label: "Group / family session",       direct: true },
+  { id: "intake",   label: "Intake / assessment",          direct: true },
+  { id: "crisis",   label: "Crisis intervention",          direct: true },
+  { id: "notes",    label: "Documentation & case notes",   direct: false },
+  { id: "consult",  label: "Case consultation",            direct: false },
+  { id: "training", label: "Training & in-service",        direct: false },
+  { id: "admin",    label: "Administrative",               direct: false },
+  { id: "other",    label: "Other indirect",               direct: false }
+];
 
-/* Common shapes to start from. Hours and topics vary widely by state. */
-var LICENCE_PRESETS = [
-  { id: "p24_30", label: "24-month cycle, 30 hours", cycleMonths: 24, ceHours: 30 },
-  { id: "p24_24", label: "24-month cycle, 24 hours", cycleMonths: 24, ceHours: 24 },
-  { id: "p24_20", label: "24-month cycle, 20 hours", cycleMonths: 24, ceHours: 20 },
-  { id: "p12_15", label: "12-month cycle, 15 hours", cycleMonths: 12, ceHours: 15 },
-  { id: "custom", label: "Custom", cycleMonths: 24, ceHours: 30 }
+var CE_CATEGORIES = [
+  { id: "ethics",     label: "Ethics", ethics: true },
+  { id: "clinical",   label: "Clinical practice", ethics: false },
+  { id: "cultural",   label: "Cultural competence", ethics: false },
+  { id: "supervision",label: "Supervision training", ethics: false },
+  { id: "telehealth", label: "Telehealth", ethics: false },
+  { id: "suicide",    label: "Suicide prevention / risk", ethics: false },
+  { id: "other",      label: "Other approved", ethics: false }
 ];
 
 /* ---------- helpers ---------- */
@@ -170,6 +188,14 @@ function parseISO(s) {
   if (p.length !== 3) return null;
   var d = new Date(Number(p[0]), Number(p[1]) - 1, Number(p[2]));
   return isNaN(d.getTime()) ? null : d;
+}
+function periodOf(iso) { return String(iso || "").slice(0, 7); }
+function periodLabel(p) {
+  var names = ["January","February","March","April","May","June",
+               "July","August","September","October","November","December"];
+  var bits = String(p || "").split("-");
+  if (bits.length < 2) return p || "";
+  return names[Number(bits[1]) - 1] + " " + bits[0];
 }
 function daysUntil(a, b) {
   var x = parseISO(a), y = parseISO(b);
@@ -183,166 +209,203 @@ function addMonths(iso, months) {
   t.setMonth(t.getMonth() + months);
   return toISO(t);
 }
+function monthsBetween(a, b) {
+  var x = parseISO(a), y = parseISO(b);
+  if (!x || !y) return null;
+  return (y.getFullYear() - x.getFullYear()) * 12 + (y.getMonth() - x.getMonth());
+}
 function num(v) { var n = parseFloat(v); return isNaN(n) ? 0 : n; }
 function round1(n) { return Math.round(n * 10) / 10; }
 function pct(part, whole) { return whole > 0 ? (part / whole) * 100 : 0; }
-function topicLabel(id) {
-  for (var i = 0; i < TOPICS.length; i++) { if (TOPICS[i].id === id) return TOPICS[i].label; }
+
+function isDirect(kindId) {
+  for (var i = 0; i < HOUR_KINDS.length; i++) {
+    if (HOUR_KINDS[i].id === kindId) return !!HOUR_KINDS[i].direct;
+  }
+  return false;
+}
+function kindLabel(id) {
+  for (var i = 0; i < HOUR_KINDS.length; i++) { if (HOUR_KINDS[i].id === id) return HOUR_KINDS[i].label; }
+  return id || "";
+}
+function isEthics(catId) {
+  for (var i = 0; i < CE_CATEGORIES.length; i++) {
+    if (CE_CATEGORIES[i].id === catId) return !!CE_CATEGORIES[i].ethics;
+  }
+  return false;
+}
+function ceCatLabel(id) {
+  for (var i = 0; i < CE_CATEGORIES.length; i++) { if (CE_CATEGORIES[i].id === id) return CE_CATEGORIES[i].label; }
   return id || "";
 }
 
-/* ---------- the allocation engine ---------- */
+/* ---------- experience hours ---------- */
+function sumHours(rows) {
+  var t = 0;
+  for (var i = 0; i < rows.length; i++) t += num(rows[i].hours);
+  return round1(t);
+}
+function directHours(rows) {
+  var t = 0;
+  for (var i = 0; i < rows.length; i++) { if (isDirect(rows[i].kind)) t += num(rows[i].hours); }
+  return round1(t);
+}
+function indirectHours(rows) { return round1(sumHours(rows) - directHours(rows)); }
 
-/* Does this CE entry apply to this licence? */
-function appliesTo(ceRow, licenceId) {
-  var list = ceRow.licences;
-  if (!list || !list.length) return false;
-  for (var i = 0; i < list.length; i++) { if (list[i] === licenceId) return true; }
-  return false;
+function supTotals(contacts) {
+  var total = 0, indiv = 0;
+  for (var i = 0; i < contacts.length; i++) {
+    var h = num(contacts[i].hours);
+    total += h;
+    if (contacts[i].type === "individual") indiv += h;
+  }
+  return { total: round1(total), individual: round1(indiv),
+           group: round1(total - indiv), individualPct: pct(indiv, total) };
 }
 
-/* The CE rows that count toward one licence's CURRENT cycle. */
-function ceForLicence(ceRows, licence) {
-  var start = licence.cycleStart;
-  var end = addMonths(start, num(licence.cycleMonths));
+/* THE LICENSURE ENGINE — progress against the requirement set. */
+function licensureProgress(entries, contacts, req, startISO, todayISOstr) {
+  var total = sumHours(entries);
+  var direct = directHours(entries);
+  var sup = supTotals(contacts);
+  var months = startISO ? monthsBetween(startISO, todayISOstr) : 0;
+  if (months === null || months < 0) months = 0;
+
+  var checks = [];
+  var add = function (label, have, need, unit, ok) {
+    checks.push({ label: label, have: have, need: need, unit: unit,
+                  ok: ok === undefined ? have >= need : ok,
+                  percent: need > 0 ? Math.min(100, pct(have, need)) : 100 });
+  };
+
+  add("Total experience hours", total, num(req.totalHours), "h");
+  add("Direct client contact", direct, num(req.directHours), "h");
+  add("Supervision hours", sup.total, num(req.supervisionHours), "h");
+  add("Individual share of supervision", round1(sup.individualPct), num(req.individualPct), "%",
+      sup.total === 0 ? false : sup.individualPct >= num(req.individualPct));
+  add("Months elapsed", months, num(req.minMonths), " months");
+
+  var done = 0;
+  for (var i = 0; i < checks.length; i++) { if (checks[i].ok) done++; }
+
+  return {
+    total: total, direct: direct, indirect: round1(total - direct),
+    supervision: sup, months: months,
+    checks: checks, metCount: done, allMet: done === checks.length,
+    percent: pct(total, num(req.totalHours))
+  };
+}
+
+/* Pace + projection on experience hours. */
+function hoursPace(entries) {
+  var byPeriod = {};
+  for (var i = 0; i < entries.length; i++) {
+    var p = periodOf(entries[i].date);
+    if (!p) continue;
+    byPeriod[p] = (byPeriod[p] || 0) + num(entries[i].hours);
+  }
+  var keys = Object.keys(byPeriod), sum = 0;
+  for (var k = 0; k < keys.length; k++) sum += byPeriod[keys[k]];
+  return { pace: keys.length ? round1(sum / keys.length) : 0, periods: keys.length, byPeriod: byPeriod };
+}
+function projectFinish(entries, req, todayISOstr) {
+  var p = hoursPace(entries);
+  var remaining = Math.max(0, num(req.totalHours) - sumHours(entries));
+  if (p.pace <= 0) return { monthsLeft: null, finishISO: null, pace: 0 };
+  var monthsLeft = Math.ceil(remaining / p.pace);
+  return { monthsLeft: monthsLeft, finishISO: addMonths(todayISOstr, monthsLeft), pace: p.pace };
+}
+
+/* ---------- CE cycle ---------- */
+function ceInCycle(ceRows, cycleStartISO, cycleEndISO) {
   var out = [];
   for (var i = 0; i < ceRows.length; i++) {
-    var r = ceRows[i];
-    if (!appliesTo(r, licence.id)) continue;
-    if (!r.date) continue;
-    if (r.date >= start && r.date <= end) out.push(r);
+    var d = ceRows[i].date;
+    if (!d) continue;
+    if (d >= cycleStartISO && d <= cycleEndISO) out.push(ceRows[i]);
   }
   return out;
 }
-
-/* Hours by topic for a set of CE rows. */
-function hoursByTopic(ceRows) {
-  var map = {};
-  for (var i = 0; i < ceRows.length; i++) {
-    var t = ceRows[i].topic || "other";
-    map[t] = round1((map[t] || 0) + num(ceRows[i].hours));
-  }
-  return map;
-}
-
-/* THE PER-LICENCE STATUS — the core of the product. */
-function licenceStatus(licence, ceRows, todayISOstr) {
-  var rows = ceForLicence(ceRows, licence);
-  var cycleEnd = addMonths(licence.cycleStart, num(licence.cycleMonths));
-
-  var total = 0, unverified = 0;
-  for (var i = 0; i < rows.length; i++) {
-    total += num(rows[i].hours);
-    if (rows[i].certificate !== "1") unverified += num(rows[i].hours);
-  }
-  total = round1(total);
-  unverified = round1(unverified);
-
-  var byTopic = hoursByTopic(rows);
-
-  /* mandatory topic checks */
-  var mandates = licence.mandates || [];
-  var topicChecks = [];
-  var mandatesMet = true;
-  for (var m = 0; m < mandates.length; m++) {
-    var have = byTopic[mandates[m].topic] || 0;
-    var need = num(mandates[m].hours);
-    var ok = have >= need;
-    if (!ok) mandatesMet = false;
-    topicChecks.push({ topic: mandates[m].topic, label: topicLabel(mandates[m].topic),
-                       have: round1(have), need: need, ok: ok,
-                       percent: need > 0 ? Math.min(100, pct(have, need)) : 100 });
-  }
-
-  var needHours = num(licence.ceHours);
-  var remaining = Math.max(0, needHours - total);
-  var daysLeft = daysUntil(todayISOstr, licence.expiry || cycleEnd);
-  var monthsLeft = daysLeft === null ? null : daysLeft / 30.44;
-
-  return {
-    licenceId: licence.id,
-    cycleStart: licence.cycleStart, cycleEnd: cycleEnd,
-    expiry: licence.expiry || cycleEnd,
-    logged: total, need: needHours, remaining: round1(remaining),
-    unverified: unverified,
-    entries: rows.length,
-    byTopic: byTopic,
-    topicChecks: topicChecks,
-    hoursMet: total >= needHours,
-    mandatesMet: mandatesMet,
-    certificatesComplete: unverified === 0,
-    daysLeft: daysLeft,
-    expired: daysLeft !== null && daysLeft < 0,
-    perMonthNeeded: monthsLeft && monthsLeft > 0 ? round1(remaining / monthsLeft) : null,
-    percent: needHours > 0 ? Math.min(100, pct(total, needHours)) : 100,
-    ready: total >= needHours && mandatesMet && unverified === 0
-  };
-}
-
-/* How many hours did one CE entry earn across all the licences it was applied to?
-   Useful for showing the leverage of a single course. */
-function ceLeverage(ceRow) {
-  var n = ceRow.licences ? ceRow.licences.length : 0;
-  return { licences: n, effectiveHours: round1(num(ceRow.hours) * n) };
-}
-
-/* Total "credit delivered" vs "hours actually sat" — the multi-licence saving. */
-function leverageSummary(ceRows) {
-  var sat = 0, delivered = 0;
+function ceTotals(ceRows) {
+  var total = 0, ethics = 0, unverified = 0;
   for (var i = 0; i < ceRows.length; i++) {
     var h = num(ceRows[i].hours);
-    sat += h;
-    delivered += h * (ceRows[i].licences ? ceRows[i].licences.length : 0);
+    total += h;
+    if (isEthics(ceRows[i].category)) ethics += h;
+    if (ceRows[i].certificate !== "1") unverified += h;
   }
-  return { sat: round1(sat), delivered: round1(delivered),
-           multiplier: sat > 0 ? Math.round((delivered / sat) * 100) / 100 : 0 };
+  return { total: round1(total), ethics: round1(ethics),
+           unverified: round1(unverified), count: ceRows.length };
 }
+function ceCycleStatus(ceRows, req, cycleStartISO, todayISOstr) {
+  var cycleEnd = addMonths(cycleStartISO, num(req.cycleMonths));
+  var rows = ceInCycle(ceRows, cycleStartISO, cycleEnd);
+  var tot = ceTotals(rows);
+  var daysLeft = daysUntil(todayISOstr, cycleEnd);
+  var needTotal = num(req.ceHoursPerCycle);
+  var needEthics = num(req.ceEthicsHours);
+  var remaining = Math.max(0, needTotal - tot.total);
+  var monthsLeft = daysLeft === null ? null : Math.max(0, daysLeft / 30.44);
 
-/* Certifications (BLS, ACLS, specialty) — simple expiry tracking. */
-function certStatus(cert, todayISOstr, warnDays) {
-  var d = daysUntil(todayISOstr, cert.expiry);
-  var w = warnDays === undefined ? 90 : warnDays;
   return {
-    daysLeft: d,
-    expired: d !== null && d < 0,
-    expiringSoon: d !== null && d >= 0 && d <= w,
-    state: d === null ? "unknown" : (d < 0 ? "expired" : (d <= w ? "soon" : "ok"))
+    cycleStart: cycleStartISO, cycleEnd: cycleEnd,
+    logged: tot.total, ethics: tot.ethics, unverified: tot.unverified, count: tot.count,
+    needTotal: needTotal, needEthics: needEthics,
+    remaining: round1(remaining),
+    totalMet: tot.total >= needTotal,
+    ethicsMet: tot.ethics >= needEthics,
+    daysLeft: daysLeft,
+    perMonthNeeded: monthsLeft && monthsLeft > 0 ? round1(remaining / monthsLeft) : null,
+    percent: needTotal > 0 ? Math.min(100, pct(tot.total, needTotal)) : 100,
+    ready: tot.total >= needTotal && tot.ethics >= needEthics && tot.unverified === 0
   };
 }
 
-/* Everything with a date, sorted soonest first — licences and certifications together. */
-function renewalCalendar(licences, certs, todayISOstr) {
+/* Audit readiness across everything that could be asked for. */
+function auditChecklist(entries, contacts, ceRows, req, cycle) {
   var items = [];
-  for (var i = 0; i < licences.length; i++) {
-    var L = licences[i];
-    var exp = L.expiry || addMonths(L.cycleStart, num(L.cycleMonths));
-    items.push({ kind: "licence", id: L.id, label: L.type + " — " + L.state,
-                 detail: L.number || "", date: exp, daysLeft: daysUntil(todayISOstr, exp) });
-  }
-  for (var j = 0; j < certs.length; j++) {
-    items.push({ kind: "certification", id: certs[j].id, label: certs[j].name,
-                 detail: certs[j].issuer || "", date: certs[j].expiry,
-                 daysLeft: daysUntil(todayISOstr, certs[j].expiry) });
-  }
-  items.sort(function (a, b) {
-    if (a.date === b.date) return 0;
-    if (!a.date) return 1;
-    if (!b.date) return -1;
-    return a.date < b.date ? -1 : 1;
-  });
-  return items;
+  var push = function (label, ok, detail) { items.push({ label: label, ok: ok, detail: detail }); };
+
+  var missingSup = 0;
+  for (var i = 0; i < entries.length; i++) { if (!entries[i].supervisorId) missingSup++; }
+  push("Every hours entry names a supervisor", missingSup === 0,
+       missingSup === 0 ? "All entries attributed" : missingSup + " entries with no supervisor");
+
+  var noCert = 0;
+  for (var j = 0; j < ceRows.length; j++) { if (ceRows[j].certificate !== "1") noCert++; }
+  push("Every CE entry has a certificate on file", noCert === 0,
+       noCert === 0 ? "All certificates marked held" : noCert + " without a certificate");
+
+  push("CE hours for this cycle complete", cycle.totalMet,
+       cycle.logged + " of " + cycle.needTotal + " hours");
+  push("Ethics hours for this cycle complete", cycle.ethicsMet,
+       cycle.ethics + " of " + cycle.needEthics + " hours");
+
+  var supT = supTotals(contacts);
+  push("Supervision individual share met", supT.total > 0 && supT.individualPct >= num(req.individualPct),
+       round1(supT.individualPct) + "% individual");
+
+  var gaps = supervisionGaps(contacts, 45);
+  push("No supervision gap longer than 45 days", gaps.length === 0,
+       gaps.length === 0 ? "No long gaps" : gaps.length + " gap(s) found");
+
+  var ok = 0;
+  for (var k = 0; k < items.length; k++) { if (items[k].ok) ok++; }
+  return { items: items, ok: ok, total: items.length,
+           score: items.length ? Math.round(pct(ok, items.length)) : 0 };
 }
 
-/* Shop-wide readiness across every licence. */
-function overallReadiness(licences, ceRows, todayISOstr) {
-  var ready = 0, statuses = [];
-  for (var i = 0; i < licences.length; i++) {
-    var s = licenceStatus(licences[i], ceRows, todayISOstr);
-    statuses.push(s);
-    if (s.ready) ready++;
+/* Find stretches with no supervision contact longer than maxDays. */
+function supervisionGaps(contacts, maxDays) {
+  var dates = [];
+  for (var i = 0; i < contacts.length; i++) { if (contacts[i].date) dates.push(contacts[i].date); }
+  dates.sort();
+  var gaps = [];
+  for (var j = 1; j < dates.length; j++) {
+    var d = daysUntil(dates[j - 1], dates[j]);
+    if (d !== null && d > maxDays) gaps.push({ from: dates[j - 1], to: dates[j], days: d });
   }
-  return { statuses: statuses, ready: ready, total: licences.length,
-           score: licences.length ? Math.round(pct(ready, licences.length)) : 0 };
+  return gaps;
 }
 
 function toCSV(rows) {
@@ -361,22 +424,22 @@ function toCSV(rows) {
 
 <script id="uiapp">
 /* ===== UI ===== */
-var KEY = "llsNurseCE_v1";
+var KEY = "llsLicensureHours_v1";
 /* ---- demo-only limit: this block exists only in the public try-it demo, never in the sold product ---- */
-var DEMO_MODE = true, DEMO_CE_LIMIT = 25; /* 10 seeded + 15 room to try adding your own */
+var DEMO_MODE = true, DEMO_ENTRY_LIMIT = 90; /* 75 seeded + 15 room to try adding your own */
 function demoLimitReached(){
   if(!DEMO_MODE) return false;
-  if(!STATE.ce || STATE.ce.length < DEMO_CE_LIMIT) return false;
-  alert("You've reached the "+DEMO_CE_LIMIT+"-entry demo limit.\n\nThis is just a preview — buy the full version for unlimited entries, all features unlocked, and your own permanent copy.");
+  if(!STATE.entries || STATE.entries.length < DEMO_ENTRY_LIMIT) return false;
+  alert("You've reached the "+DEMO_ENTRY_LIMIT+"-entry demo limit.\n\nThis is just a preview — buy the full version for unlimited entries, all features unlocked, and your own permanent copy.");
   return true;
 }
 
-var STATE = null, VIEW = "dash", MODAL = null, EDIT = null, PACKLIC = null;
+var STATE = null, VIEW = "dash", MODAL = null, EDIT = null;
 
 var TABS = [
-  ["dash", "Dashboard"], ["licences", "Licences"], ["ce", "CE Log"],
-  ["topics", "Requirements"], ["certs", "Certifications"], ["calendar", "Renewal Calendar"],
-  ["pack", "Audit Pack"], ["reports", "Reports"]
+  ["dash", "Dashboard"], ["hours", "Experience Hours"], ["supervision", "Supervision"],
+  ["ce", "CE Log"], ["requirements", "Requirements"], ["renewal", "Renewal"],
+  ["people", "Supervisors"], ["reports", "Reports"]
 ];
 
 function uid() { return "id" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
@@ -386,60 +449,77 @@ function esc(s) {
 }
 function todayISO() { return toISO(new Date()); }
 
+function defaultReq() {
+  return {
+    presetId: "lcsw", stateName: "", licenceType: "",
+    totalHours: 3000, directHours: 1200, supervisionHours: 100, individualPct: 50,
+    minMonths: 24, ceHoursPerCycle: 30, ceEthicsHours: 3, cycleMonths: 24
+  };
+}
 function blank() {
-  return { profile: { name: "" }, licences: [], ce: [], certs: [], settings: { dark: "0" } };
+  return {
+    profile: { name: "", startDate: todayISO(), licensed: "0", licenceNo: "", cycleStart: todayISO() },
+    req: defaultReq(),
+    entries: [], contacts: [], ce: [], supervisors: [],
+    settings: { dark: "0" }
+  };
 }
 
 function seed() {
   var today = new Date();
   var iso = function (mb, day) { return toISO(new Date(today.getFullYear(), today.getMonth() - mb, day)); };
-  var fwd = function (mf, day) { return toISO(new Date(today.getFullYear(), today.getMonth() + mf, day)); };
+  var s1 = uid(), s2 = uid();
 
-  var l1 = uid(), l2 = uid(), l3 = uid();
-  var licences = [
-    { id: l1, type: "RN", state: "Texas", number: "RN-884213", compact: "1",
-      cycleStart: iso(14, 1), cycleMonths: 24, ceHours: 20, expiry: fwd(10, 28),
-      mandates: [ { topic: "jurisprudence", hours: 2 }, { topic: "painopioid", hours: 2 } ],
-      notes: "Compact — primary state of residence" },
-    { id: l2, type: "RN", state: "California", number: "RN-5512907", compact: "0",
-      cycleStart: iso(10, 1), cycleMonths: 24, ceHours: 30, expiry: fwd(14, 15),
-      mandates: [ { topic: "implicitbias", hours: 2 }, { topic: "abuse", hours: 1 } ],
-      notes: "Single-state, travel assignments" },
-    { id: l3, type: "Nurse Practitioner", state: "Texas", number: "AP-22104", compact: "0",
-      cycleStart: iso(14, 1), cycleMonths: 24, ceHours: 20, expiry: fwd(10, 28),
-      mandates: [ { topic: "pharmacology", hours: 5 } ],
-      notes: "Prescriptive authority" }
-  ];
-
-  var ce = [];
-  var addCE = function (mb, day, topic, hours, prov, cert, lics) {
-    ce.push({ id: uid(), date: iso(mb, day), topic: topic, hours: hours,
-              provider: prov, certificate: cert ? "1" : "0", licences: lics, notes: "" });
+  var entries = [], contacts = [], ce = [];
+  var addH = function (mb, day, kind, hours, sup, note) {
+    entries.push({ id: uid(), date: iso(mb, day), kind: kind, hours: hours, supervisorId: sup, notes: note || "" });
   };
-  addCE(12, 9, "general", 6, "State nurses association conference", true, [l1, l2, l3]);
-  addCE(11, 14, "jurisprudence", 2, "Texas nursing law & rules", true, [l1]);
-  addCE(10, 5, "painopioid", 2, "Safe opioid prescribing", true, [l1, l3]);
-  addCE(9, 22, "pharmacology", 5, "Advanced pharmacology update", true, [l3]);
-  addCE(8, 11, "infection", 3, "Infection prevention refresher", true, [l1, l2]);
-  addCE(6, 17, "general", 6, "Critical care skills intensive", true, [l1, l2]);
-  addCE(5, 3, "abuse", 1, "Mandated reporter training", true, [l2]);
-  addCE(4, 19, "ethics", 2, "Professional boundaries", true, [l1, l2]);
-  addCE(2, 8, "general", 4, "Wound care certification course", true, [l2]);
-  addCE(1, 26, "suicide", 2, "Suicide risk screening", false, [l2]);
+  for (var m = 13; m >= 0; m--) {
+    var f = m === 0 ? 0.4 : 1;
+    addH(m, 4, "direct", Math.round(46 * f), s1, "");
+    addH(m, 9, "group", Math.round(14 * f), s1, "");
+    addH(m, 13, "intake", Math.round(10 * f), s2, "");
+    addH(m, 17, "notes", Math.round(22 * f), s1, "");
+    addH(m, 21, "consult", Math.round(8 * f), s2, "");
+    if (m % 3 === 0) addH(m, 25, "training", Math.round(6 * f), s1, "In-service");
+  }
+  for (var c = 13; c >= 0; c--) {
+    contacts.push({ id: uid(), date: iso(c, 7), type: "individual", hours: 1,
+                    supervisorId: s1, notes: "Weekly individual" });
+    contacts.push({ id: uid(), date: iso(c, 21), type: "individual", hours: 1,
+                    supervisorId: s1, notes: "" });
+    if (c % 2 === 0) contacts.push({ id: uid(), date: iso(c, 14), type: "group", hours: 1.5,
+                                     supervisorId: s2, notes: "Group case review" });
+  }
+  var addCE = function (mb, day, cat, hours, prov, cert) {
+    ce.push({ id: uid(), date: iso(mb, day), category: cat, hours: hours,
+              provider: prov, certificate: cert ? "1" : "0", notes: "" });
+  };
+  addCE(11, 8, "ethics", 3, "State association conference", true);
+  addCE(9, 15, "clinical", 6, "Trauma-informed care webinar", true);
+  addCE(7, 12, "cultural", 4, "Cultural humility workshop", true);
+  addCE(5, 20, "suicide", 3, "Risk assessment training", true);
+  addCE(3, 6, "clinical", 6, "CBT intensive", true);
+  addCE(1, 18, "telehealth", 2, "Telehealth practice update", false);
 
-  var certs = [
-    { id: uid(), name: "BLS Provider", issuer: "American Heart Association",
-      number: "BLS-772341", issued: iso(11, 3), expiry: fwd(12, 3), notes: "" },
-    { id: uid(), name: "ACLS Provider", issuer: "American Heart Association",
-      number: "ACLS-119820", issued: iso(20, 14), expiry: fwd(3, 14), notes: "Renew before travel contract" },
-    { id: uid(), name: "CCRN", issuer: "AACN Certification Corporation",
-      number: "CCRN-40921", issued: iso(30, 1), expiry: fwd(6, 1), notes: "Specialty certification" },
-    { id: uid(), name: "PALS Provider", issuer: "American Heart Association",
-      number: "PALS-66120", issued: iso(26, 9), expiry: iso(2, 9), notes: "Lapsed — needs rebooking" }
-  ];
+  var start = new Date(today.getFullYear(), today.getMonth() - 14, 1);
+  var cyc = new Date(today.getFullYear(), today.getMonth() - 12, 1);
 
-  return { profile: { name: "Sample Nurse" }, licences: licences, ce: ce, certs: certs,
-           settings: { dark: "0" } };
+  return {
+    profile: {
+      name: "Sample Associate", startDate: toISO(start),
+      licensed: "0", licenceNo: "", cycleStart: toISO(cyc)
+    },
+    req: defaultReq(),
+    entries: entries, contacts: contacts, ce: ce,
+    supervisors: [
+      { id: s1, name: "Dr. J. Whitfield", credential: "LCSW-S", licenceNo: "SW-44210",
+        email: "j.whitfield@example.com", notes: "Primary clinical supervisor" },
+      { id: s2, name: "A. Demir", credential: "LMFT-S", licenceNo: "MFT-19887",
+        email: "a.demir@example.com", notes: "Group supervision" }
+    ],
+    settings: { dark: "0" }
+  };
 }
 
 function load() {
@@ -447,11 +527,13 @@ function load() {
     var raw = localStorage.getItem(KEY);
     if (raw) { STATE = JSON.parse(raw); }
   } catch (e) { STATE = null; }
-  if (!STATE || !STATE.licences) STATE = seed();
+  if (!STATE || !STATE.entries) STATE = seed();
   if (!STATE.settings) STATE.settings = { dark: "0" };
+  if (!STATE.contacts) STATE.contacts = [];
   if (!STATE.ce) STATE.ce = [];
-  if (!STATE.certs) STATE.certs = [];
-  if (!STATE.profile) STATE.profile = { name: "" };
+  if (!STATE.supervisors) STATE.supervisors = [];
+  if (!STATE.req) STATE.req = defaultReq();
+  if (!STATE.profile) STATE.profile = blank().profile;
   document.documentElement.setAttribute("data-dark", STATE.settings.dark === "1" ? "1" : "0");
 }
 function save() { try { localStorage.setItem(KEY, JSON.stringify(STATE)); } catch (e) { } }
@@ -467,45 +549,48 @@ function el(tag, attrs, html) {
   return "<" + tag + a + ">" + (html === undefined || html === null ? "" : html) + "</" + tag + ">";
 }
 
-function licenceById(id) {
-  for (var i = 0; i < STATE.licences.length; i++) { if (STATE.licences[i].id === id) return STATE.licences[i]; }
-  return null;
+function supervisorName(id) {
+  for (var i = 0; i < STATE.supervisors.length; i++) {
+    if (STATE.supervisors[i].id === id) return STATE.supervisors[i].name;
+  }
+  return "—";
 }
-function licenceLabel(id) {
-  var L = licenceById(id);
-  return L ? L.type + " · " + L.state : "—";
-}
-function topicOptions(sel) {
-  var out = "";
-  for (var i = 0; i < TOPICS.length; i++) {
-    out += el("option", { value: TOPICS[i].id, selected: TOPICS[i].id === sel ? "selected" : null },
-      esc(TOPICS[i].label));
+function supervisorOptions(sel) {
+  var out = el("option", { value: "" }, "— none —");
+  for (var i = 0; i < STATE.supervisors.length; i++) {
+    var s = STATE.supervisors[i];
+    out += el("option", { value: s.id, selected: s.id === sel ? "selected" : null }, esc(s.name));
   }
   return out;
 }
-function typeOptions(sel) {
+function kindOptions(sel) {
   var out = "";
-  for (var i = 0; i < LICENCE_TYPES.length; i++) {
-    out += el("option", { value: LICENCE_TYPES[i], selected: LICENCE_TYPES[i] === sel ? "selected" : null },
-      esc(LICENCE_TYPES[i]));
+  for (var i = 0; i < HOUR_KINDS.length; i++) {
+    out += el("option", { value: HOUR_KINDS[i].id, selected: HOUR_KINDS[i].id === sel ? "selected" : null },
+      esc(HOUR_KINDS[i].label) + (HOUR_KINDS[i].direct ? " (direct)" : ""));
+  }
+  return out;
+}
+function ceOptions(sel) {
+  var out = "";
+  for (var i = 0; i < CE_CATEGORIES.length; i++) {
+    out += el("option", { value: CE_CATEGORIES[i].id, selected: CE_CATEGORIES[i].id === sel ? "selected" : null },
+      esc(CE_CATEGORIES[i].label));
   }
   return out;
 }
 
 function legalNote() {
   return el("div", { "class": "legalbox" },
-    el("b", {}, "Confirm every requirement with your own board. ") +
-    "This is a record-keeping tool. It is not legal or licensing advice and it is not affiliated " +
-    "with or endorsed by any board of nursing, certification body or professional association. " +
-    "Hour totals, cycle lengths and mandatory topics differ by state and by licence and they " +
-    "change. Everything here is editable, and was last reviewed " + esc(CRITERIA_REVIEWED) + ".");
+    el("b", {}, "Confirm every number with your own board. ") +
+    "This is a record-keeping tool. It is not legal, clinical or licensing advice, and it is not " +
+    "affiliated with or endorsed by any state board or professional association. The requirement " +
+    "presets are common patterns, last reviewed " + esc(CRITERIA_REVIEWED) +
+    " — they are starting points you are expected to edit on the Requirements tab.");
 }
 
-function statusPill(s) {
-  if (s.expired) return el("span", { "class": "pill bad" }, "Expired");
-  if (s.ready) return el("span", { "class": "pill good" }, "Ready");
-  if (s.daysLeft !== null && s.daysLeft <= 90) return el("span", { "class": "pill bad" }, "Due soon, short");
-  return el("span", { "class": "pill amber" }, "In progress");
+function currentCycle() {
+  return ceCycleStatus(STATE.ce, STATE.req, STATE.profile.cycleStart || todayISO(), todayISO());
 }
 
 function listCard(title, rows, rowFn, emptyMsg, headHtml) {
@@ -523,120 +608,167 @@ function listCard(title, rows, rowFn, emptyMsg, headHtml) {
 /* ---------- VIEWS ---------- */
 
 function viewDash() {
-  var ov = overallReadiness(STATE.licences, STATE.ce, todayISO());
-  var lev = leverageSummary(STATE.ce);
-  var cal = renewalCalendar(STATE.licences, STATE.certs, todayISO());
-  var next = null;
-  for (var i = 0; i < cal.length; i++) {
-    if (cal[i].daysLeft !== null && cal[i].daysLeft >= 0) { next = cal[i]; break; }
-  }
-  var expiredCount = 0;
-  for (var j = 0; j < cal.length; j++) { if (cal[j].daysLeft !== null && cal[j].daysLeft < 0) expiredCount++; }
+  var lp = licensureProgress(STATE.entries, STATE.contacts, STATE.req,
+    STATE.profile.startDate, todayISO());
+  var cyc = currentCycle();
+  var proj = projectFinish(STATE.entries, STATE.req, todayISO());
+  var audit = auditChecklist(STATE.entries, STATE.contacts, STATE.ce, STATE.req, cyc);
 
   var kpis = el("div", { "class": "grid g4" },
     el("div", { "class": "card" },
-      el("h3", {}, "Licences ready") +
-      el("div", { "class": "kpi " + (ov.score === 100 ? "" : "warn") }, ov.ready + " / " + ov.total) +
-      el("div", { "class": "note" }, ov.score + "% fully complete")) +
+      el("h3", {}, "Experience hours") +
+      el("div", { "class": "kpi" }, round1(lp.total) + " / " + num(STATE.req.totalHours)) +
+      el("div", { "class": "note" }, round1(Math.max(0, num(STATE.req.totalHours) - lp.total)) + " to go")) +
     el("div", { "class": "card" },
-      el("h3", {}, "Next renewal") +
-      el("div", { "class": "kpi gold" }, next ? next.daysLeft : "—") +
-      el("div", { "class": "note" }, next ? esc(next.label) + " · " + esc(next.date) : "Nothing scheduled")) +
+      el("h3", {}, "Direct client contact") +
+      el("div", { "class": "kpi " + (lp.direct >= num(STATE.req.directHours) ? "" : "warn") },
+        round1(lp.direct) + " / " + num(STATE.req.directHours)) +
+      el("div", { "class": "note" }, round1(pct(lp.direct, lp.total)) + "% of all hours")) +
     el("div", { "class": "card" },
-      el("h3", {}, "Expired or lapsed") +
-      el("div", { "class": "kpi " + (expiredCount ? "bad" : "") }, expiredCount) +
-      el("div", { "class": "note" }, expiredCount ? "Needs attention now" : "Nothing lapsed")) +
+      el("h3", {}, "CE this cycle") +
+      el("div", { "class": "kpi " + (cyc.totalMet ? "" : "warn") }, cyc.logged + " / " + cyc.needTotal) +
+      el("div", { "class": "note" }, cyc.daysLeft === null ? "Set a cycle start" : cyc.daysLeft + " days left in cycle")) +
     el("div", { "class": "card" },
-      el("h3", {}, "CE leverage") +
-      el("div", { "class": "kpi" }, lev.multiplier + "×") +
-      el("div", { "class": "note" }, lev.sat + " h sat · " + lev.delivered + " h of credit")));
+      el("h3", {}, "Audit readiness") +
+      el("div", { "class": "kpi " + (audit.score === 100 ? "" : "warn") }, audit.score + "%") +
+      el("div", { "class": "note" }, audit.ok + " of " + audit.total + " checks pass")));
 
-  var licCards = "";
-  for (var k = 0; k < STATE.licences.length; k++) {
-    var L = STATE.licences[k];
-    var s = ov.statuses[k];
-    var topicRows = "";
-    for (var m = 0; m < s.topicChecks.length; m++) {
-      var tc = s.topicChecks[m];
-      topicRows += el("div", { "class": "barrow" },
-        el("span", { style: "font-size:12.5px" }, esc(tc.label)) +
-        el("span", { "class": "bar" }, el("i", { "class": tc.ok ? "" : "bad", style: "width:" + tc.percent + "%" }, "")) +
-        el("b", {}, round1(tc.have) + " / " + tc.need));
-    }
-    licCards += el("div", { "class": "card" },
-      el("h3", {}, esc(L.type + " — " + L.state) +
-        (L.compact === "1" ? " " + el("span", { "class": "pill blue" }, "Compact") : "")) +
-      el("div", { "class": "row", style: "margin-bottom:9px" }, statusPill(s) +
-        el("span", { "class": "note" },
-          s.daysLeft === null ? "No expiry set" : (s.expired ? "Expired " + Math.abs(s.daysLeft) + " days ago" : s.daysLeft + " days to renewal"))) +
-      el("div", { "class": "barrow" },
-        el("span", {}, "CE hours") +
-        el("span", { "class": "bar" }, el("i", { "class": s.hoursMet ? "" : "amber", style: "width:" + s.percent + "%" }, "")) +
-        el("b", {}, s.logged + " / " + s.need)) +
-      topicRows +
-      (s.unverified > 0 ? el("p", { "class": "note" }, s.unverified + " hours still need a certificate on file") : "") +
-      (s.perMonthNeeded ? el("p", { "class": "note" }, s.perMonthNeeded + " h/month to finish before renewal") : ""));
+  var reqRows = "";
+  for (var i = 0; i < lp.checks.length; i++) {
+    var c = lp.checks[i];
+    reqRows += el("div", { "class": "barrow" },
+      el("span", { style: "font-size:12.5px" }, esc(c.label)) +
+      el("span", { "class": "bar" },
+        el("i", { "class": c.ok ? "" : "amber", style: "width:" + c.percent + "%" }, "")) +
+      el("b", {}, round1(c.have) + (c.unit === "%" ? "%" : "") + " / " + c.need));
   }
-  if (!STATE.licences.length) {
-    licCards = el("div", { "class": "card" }, el("div", { "class": "empty" },
-      el("b", {}, "No licences yet") + "Add your first licence to start tracking."));
+
+  var progCard = el("div", { "class": "card" },
+    el("h3", {}, "Toward licensure") + reqRows +
+    el("p", { "class": "note" },
+      lp.metCount + " of " + lp.checks.length + " requirements met" +
+      (proj.finishISO ? " · at " + proj.pace + " h/month you reach the hours target around " + esc(proj.finishISO) : "")));
+
+  var auditRows = "";
+  for (var a = 0; a < audit.items.length; a++) {
+    auditRows += el("div", { "class": "barrow" },
+      el("span", { style: "font-size:12.5px" }, esc(audit.items[a].label)) +
+      el("span", { "class": "note" }, esc(audit.items[a].detail)) +
+      el("span", { style: "text-align:right" },
+        el("span", { "class": "pill " + (audit.items[a].ok ? "good" : "bad") }, audit.items[a].ok ? "OK" : "Fix")));
   }
+  var auditCard = el("div", { "class": "card" }, el("h3", {}, "What an auditor would ask for") + auditRows);
 
   return el("h2", {}, "Dashboard") +
-    el("div", { "class": "sub" }, "Every licence, every cycle, and what is still missing on each.") +
+    el("div", { "class": "sub" }, "Hours toward licensure, CE for this cycle, and what is missing.") +
     legalNote() +
     kpis + el("div", { style: "height:14px" }, "") +
-    el("div", { "class": "grid g2" }, licCards);
+    el("div", { "class": "grid g2" }, progCard + auditCard);
 }
 
-function viewLicences() {
+function viewHours() {
+  var rows = STATE.entries.slice().sort(function (a, b) { return String(b.date).localeCompare(String(a.date)); });
   var head = el("tr", {},
-    el("th", {}, "Licence") + el("th", {}, "Number") + el("th", {}, "Cycle") +
-    el("th", {}, "CE required") + el("th", {}, "Logged") + el("th", {}, "Expiry") +
-    el("th", {}, "Status") + el("th", { style: "text-align:right" }, ""));
-  var body = listCard("Your licences", STATE.licences, function (L) {
-    var s = licenceStatus(L, STATE.ce, todayISO());
+    el("th", {}, "Date") + el("th", {}, "Activity") + el("th", {}, "Type") + el("th", {}, "Hours") +
+    el("th", {}, "Supervisor") + el("th", {}, "Notes") + el("th", { style: "text-align:right" }, ""));
+  var body = listCard("Experience hours", rows, function (e) {
+    var d = isDirect(e.kind);
     return el("tr", {},
-      el("td", {}, esc(L.type) + el("div", { "class": "note" },
-        esc(L.state) + (L.compact === "1" ? " · compact" : ""))) +
-      el("td", {}, esc(L.number || "—")) +
-      el("td", {}, L.cycleMonths + " mo" + el("div", { "class": "note" }, esc(s.cycleStart) + " →")) +
-      el("td", {}, L.ceHours + " h") +
-      el("td", {}, s.logged + " h" + el("div", { "class": "note" }, s.entries + " entries")) +
-      el("td", {}, esc(s.expiry || "—")) +
-      el("td", {}, statusPill(s)) +
+      el("td", {}, esc(e.date)) +
+      el("td", {}, esc(kindLabel(e.kind))) +
+      el("td", {}, el("span", { "class": "pill " + (d ? "blue" : "") }, d ? "Direct" : "Indirect")) +
+      el("td", {}, round1(num(e.hours))) +
+      el("td", {}, esc(supervisorName(e.supervisorId))) +
+      el("td", {}, esc(e.notes || "")) +
       el("td", { style: "text-align:right;white-space:nowrap" },
-        el("button", { "class": "btn sm", "data-edit-l": L.id }, "Edit") + " " +
-        el("button", { "class": "btn sm danger", "data-del-l": L.id }, "Delete")));
-  }, "Add the licences you hold.", head);
+        el("button", { "class": "btn sm", "data-edit-h": e.id }, "Edit") + " " +
+        el("button", { "class": "btn sm danger", "data-del-h": e.id }, "Delete")));
+  }, "Add your first block of hours.", head);
 
-  return el("h2", {}, "Licences") +
-    el("div", { "class": "sub" }, "Hold licences in three states? Each one gets its own cycle and its own hour count.") +
+  return el("h2", {}, "Experience Hours") +
+    el("div", { "class": "sub" }, "Direct or indirect is set by the activity, so the split is always right.") +
     el("div", { "class": "row", style: "margin-bottom:12px" },
-      el("button", { "class": "btn pri", "data-new-l": "1" }, "+ Add licence")) +
+      el("button", { "class": "btn pri", "data-new-h": "1" }, "+ Add hours") +
+      el("span", { "class": "note" },
+        round1(sumHours(STATE.entries)) + " total · " + round1(directHours(STATE.entries)) +
+        " direct · " + round1(indirectHours(STATE.entries)) + " indirect")) +
+    body;
+}
+
+function viewSupervision() {
+  var rows = STATE.contacts.slice().sort(function (a, b) { return String(b.date).localeCompare(String(a.date)); });
+  var sup = supTotals(STATE.contacts);
+  var gaps = supervisionGaps(STATE.contacts, 45);
+
+  var head = el("tr", {},
+    el("th", {}, "Date") + el("th", {}, "Type") + el("th", {}, "Hours") +
+    el("th", {}, "Supervisor") + el("th", {}, "Notes") + el("th", { style: "text-align:right" }, ""));
+  var body = listCard("Supervision contacts", rows, function (c) {
+    return el("tr", {},
+      el("td", {}, esc(c.date)) +
+      el("td", {}, el("span", { "class": "pill " + (c.type === "individual" ? "blue" : "") },
+        c.type === "individual" ? "Individual" : "Group")) +
+      el("td", {}, round1(num(c.hours))) +
+      el("td", {}, esc(supervisorName(c.supervisorId))) +
+      el("td", {}, esc(c.notes || "")) +
+      el("td", { style: "text-align:right;white-space:nowrap" },
+        el("button", { "class": "btn sm", "data-edit-c": c.id }, "Edit") + " " +
+        el("button", { "class": "btn sm danger", "data-del-c": c.id }, "Delete")));
+  }, "Add your first supervision contact.", head);
+
+  var gapRows = "";
+  for (var i = 0; i < gaps.length; i++) {
+    gapRows += el("tr", {},
+      el("td", {}, esc(gaps[i].from)) + el("td", {}, esc(gaps[i].to)) +
+      el("td", { style: "text-align:right" }, el("span", { "class": "pill bad" }, gaps[i].days + " days")));
+  }
+  var gapCard = gaps.length
+    ? el("div", { "class": "card" },
+        el("h3", {}, "Gaps longer than 45 days") +
+        el("div", { "class": "tblwrap" }, el("table", {},
+          el("tr", {}, el("th", {}, "From") + el("th", {}, "To") + el("th", { style: "text-align:right" }, "Gap")) + gapRows)) +
+        el("p", { "class": "note" }, "Long gaps are what a board notices first. Note the reason in your records."))
+    : el("div", { "class": "card" },
+        el("h3", {}, "Continuity") +
+        el("div", { "class": "kpi" }, "No long gaps") +
+        el("div", { "class": "note" }, "No stretch over 45 days without a supervision contact."));
+
+  var statCard = el("div", { "class": "card" },
+    el("h3", {}, "Supervision mix") +
+    el("div", { "class": "barrow" },
+      el("span", {}, "Individual") +
+      el("span", { "class": "bar" }, el("i", { style: "width:" + Math.min(100, sup.individualPct) + "%" }, "")) +
+      el("b", {}, round1(sup.individual) + "h")) +
+    el("div", { "class": "barrow" },
+      el("span", {}, "Group") +
+      el("span", { "class": "bar" }, el("i", { "class": "amber", style: "width:" + Math.min(100, 100 - sup.individualPct) + "%" }, "")) +
+      el("b", {}, round1(sup.group) + "h")) +
+    el("p", { "class": "note" },
+      round1(sup.individualPct) + "% individual · your requirement is " + num(STATE.req.individualPct) + "%"));
+
+  return el("h2", {}, "Supervision") +
+    el("div", { "class": "sub" }, "Contacts, the individual/group split, and any gap a board would query.") +
+    el("div", { "class": "row", style: "margin-bottom:12px" },
+      el("button", { "class": "btn pri", "data-new-c": "1" }, "+ Add contact") +
+      el("span", { "class": "note" }, round1(sup.total) + " supervision hours logged")) +
+    el("div", { "class": "grid g2" }, statCard + gapCard) +
+    el("div", { style: "height:14px" }, "") +
     body;
 }
 
 function viewCE() {
+  var cyc = currentCycle();
   var rows = STATE.ce.slice().sort(function (a, b) { return String(b.date).localeCompare(String(a.date)); });
   var head = el("tr", {},
-    el("th", {}, "Date") + el("th", {}, "Topic") + el("th", {}, "Hours") +
-    el("th", {}, "Counts toward") + el("th", {}, "Provider") + el("th", {}, "Certificate") +
-    el("th", { style: "text-align:right" }, ""));
+    el("th", {}, "Date") + el("th", {}, "Category") + el("th", {}, "Hours") + el("th", {}, "Provider") +
+    el("th", {}, "Certificate") + el("th", { style: "text-align:right" }, ""));
   var body = listCard("Continuing education", rows, function (r) {
-    var chips = "";
-    var list = r.licences || [];
-    for (var i = 0; i < list.length; i++) {
-      chips += el("span", { "class": "pill blue", style: "margin-right:4px" }, esc(licenceLabel(list[i])));
-    }
-    if (!list.length) chips = el("span", { "class": "pill bad" }, "Not assigned");
-    var lv = ceLeverage(r);
+    var inCycle = r.date >= cyc.cycleStart && r.date <= cyc.cycleEnd;
     return el("tr", {},
-      el("td", {}, esc(r.date)) +
-      el("td", {}, esc(topicLabel(r.topic))) +
-      el("td", {}, round1(num(r.hours)) +
-        (lv.licences > 1 ? el("div", { "class": "note" }, lv.effectiveHours + " h of credit") : "")) +
-      el("td", {}, chips) +
+      el("td", {}, esc(r.date) + (inCycle ? "" : el("div", { "class": "note" }, "outside cycle"))) +
+      el("td", {}, esc(ceCatLabel(r.category)) +
+        (isEthics(r.category) ? " " + el("span", { "class": "pill blue" }, "Ethics") : "")) +
+      el("td", {}, round1(num(r.hours))) +
       el("td", {}, esc(r.provider || "—")) +
       el("td", {}, r.certificate === "1"
         ? el("span", { "class": "pill good" }, "On file")
@@ -646,337 +778,310 @@ function viewCE() {
         el("button", { "class": "btn sm danger", "data-del-e": r.id }, "Delete")));
   }, "Log your first CE activity.", head);
 
-  var lev = leverageSummary(STATE.ce);
+  var cycleCard = el("div", { "class": "card" },
+    el("h3", {}, "This renewal cycle") +
+    el("div", { "class": "barrow" },
+      el("span", {}, "Total hours") +
+      el("span", { "class": "bar" }, el("i", { "class": cyc.totalMet ? "" : "amber", style: "width:" + cyc.percent + "%" }, "")) +
+      el("b", {}, cyc.logged + " / " + cyc.needTotal)) +
+    el("div", { "class": "barrow" },
+      el("span", {}, "Ethics hours") +
+      el("span", { "class": "bar" },
+        el("i", { "class": cyc.ethicsMet ? "" : "bad", style: "width:" + Math.min(100, pct(cyc.ethics, cyc.needEthics)) + "%" }, "")) +
+      el("b", {}, cyc.ethics + " / " + cyc.needEthics)) +
+    el("p", { "class": "note" },
+      esc(cyc.cycleStart) + " to " + esc(cyc.cycleEnd) +
+      (cyc.daysLeft === null ? "" : " · " + cyc.daysLeft + " days left") +
+      (cyc.perMonthNeeded ? " · " + cyc.perMonthNeeded + " h/month to finish on time" : "")));
+
   return el("h2", {}, "CE Log") +
-    el("div", { "class": "sub" }, "Tick every licence a course counts toward. One course, several licences, entered once.") +
+    el("div", { "class": "sub" }, "Continuing education for the current cycle, with certificates tracked.") +
     el("div", { "class": "row", style: "margin-bottom:12px" },
       el("button", { "class": "btn pri", "data-new-e": "1" }, "+ Add CE") +
       el("span", { "class": "note" },
-        lev.sat + " hours sat, " + lev.delivered + " hours of credit earned — a " + lev.multiplier + "× return")) +
-    body;
+        cyc.unverified > 0 ? cyc.unverified + " hours without a certificate on file" : "All certificates on file")) +
+    cycleCard + el("div", { style: "height:14px" }, "") + body;
 }
 
-function viewTopics() {
-  var cards = "";
-  for (var i = 0; i < STATE.licences.length; i++) {
-    var L = STATE.licences[i];
-    var s = licenceStatus(L, STATE.ce, todayISO());
-    var rows = "";
-    var mandates = L.mandates || [];
-    for (var m = 0; m < mandates.length; m++) {
-      var have = s.byTopic[mandates[m].topic] || 0;
-      rows += el("tr", {},
-        el("td", {}, esc(topicLabel(mandates[m].topic))) +
-        el("td", {}, mandates[m].hours + " h") +
-        el("td", {}, round1(have) + " h") +
-        el("td", { style: "text-align:right" },
-          el("span", { "class": "pill " + (have >= num(mandates[m].hours) ? "good" : "bad") },
-            have >= num(mandates[m].hours) ? "Met" : "Short")) +
-        el("td", { style: "text-align:right" },
-          el("button", { "class": "btn sm danger", "data-del-m": L.id + "|" + m }, "Remove")));
-    }
-    var table = mandates.length
-      ? el("div", { "class": "tblwrap" }, el("table", {},
-          el("tr", {}, el("th", {}, "Topic") + el("th", {}, "Required") + el("th", {}, "Logged") +
-            el("th", { style: "text-align:right" }, "Status") + el("th", {}, "")) + rows))
-      : el("div", { "class": "empty" }, "No mandatory topics set for this licence.");
+function viewRequirements() {
+  var r = STATE.req;
+  var opts = "";
+  for (var i = 0; i < PRESETS.length; i++) {
+    opts += el("option", { value: PRESETS[i].id, selected: PRESETS[i].id === r.presetId ? "selected" : null },
+      esc(PRESETS[i].label));
+  }
 
-    cards += el("div", { "class": "card" },
-      el("h3", {}, esc(L.type + " — " + L.state)) + table +
-      el("div", { "class": "row", style: "margin-top:10px" },
-        el("select", { id: "mt_" + L.id, style: "max-width:230px" }, topicOptions("")) +
-        el("input", { id: "mh_" + L.id, type: "number", step: "0.5", min: "0",
-          placeholder: "hours", style: "max-width:100px" }, "") +
-        el("button", { "class": "btn", "data-add-m": L.id }, "Add requirement")));
-  }
-  if (!STATE.licences.length) {
-    cards = el("div", { "class": "card" }, el("div", { "class": "empty" },
-      el("b", {}, "No licences yet") + "Add a licence first, then set its mandatory topics."));
-  }
+  var form = el("div", { "class": "card" },
+    el("h3", {}, "Your requirement set") +
+    el("p", { "class": "hint" },
+      "Pick a preset to fill the fields, then correct every number against your own board. " +
+      "These are starting points, not a statement of any board's current rules.") +
+    el("div", { "class": "fgrid" },
+      el("div", { style: "grid-column:1/-1" }, el("label", {}, "Preset") +
+        el("select", { id: "rPreset" }, opts)) +
+      el("div", {}, el("label", {}, "State / province") + el("input", { id: "rState", value: esc(r.stateName || "") }, "")) +
+      el("div", {}, el("label", {}, "Licence type") + el("input", { id: "rType", value: esc(r.licenceType || "") }, "")) +
+      el("div", {}, el("label", {}, "Total experience hours") + el("input", { id: "rTotal", type: "number", min: "0", value: esc(r.totalHours) }, "")) +
+      el("div", {}, el("label", {}, "Direct client hours") + el("input", { id: "rDirect", type: "number", min: "0", value: esc(r.directHours) }, "")) +
+      el("div", {}, el("label", {}, "Supervision hours") + el("input", { id: "rSup", type: "number", min: "0", value: esc(r.supervisionHours) }, "")) +
+      el("div", {}, el("label", {}, "Individual supervision %") + el("input", { id: "rIndiv", type: "number", min: "0", max: "100", value: esc(r.individualPct) }, "")) +
+      el("div", {}, el("label", {}, "Minimum months") + el("input", { id: "rMonths", type: "number", min: "0", value: esc(r.minMonths) }, "")) +
+      el("div", {}, el("label", {}, "CE hours per cycle") + el("input", { id: "rCE", type: "number", min: "0", value: esc(r.ceHoursPerCycle) }, "")) +
+      el("div", {}, el("label", {}, "Ethics hours per cycle") + el("input", { id: "rEthics", type: "number", min: "0", value: esc(r.ceEthicsHours) }, "")) +
+      el("div", {}, el("label", {}, "Cycle length (months)") + el("input", { id: "rCycle", type: "number", min: "1", value: esc(r.cycleMonths) }, ""))) +
+    el("div", { "class": "row", style: "margin-top:12px" },
+      el("button", { "class": "btn pri", "data-save-req": "1" }, "Save requirements") +
+      el("button", { "class": "btn", "data-apply-preset": "1" }, "Fill from preset")));
+
+  var p = STATE.profile;
+  var profile = el("div", { "class": "card" },
+    el("h3", {}, "Your details") +
+    el("div", { "class": "fgrid" },
+      el("div", { style: "grid-column:1/-1" }, el("label", {}, "Name") + el("input", { id: "pName", value: esc(p.name || "") }, "")) +
+      el("div", {}, el("label", {}, "Experience start date") + el("input", { id: "pStart", type: "date", value: esc(p.startDate || "") }, "")) +
+      el("div", {}, el("label", {}, "Current CE cycle start") + el("input", { id: "pCycle", type: "date", value: esc(p.cycleStart || "") }, "")) +
+      el("div", {}, el("label", {}, "Already licensed?") +
+        el("select", { id: "pLicensed" },
+          el("option", { value: "0", selected: p.licensed !== "1" ? "selected" : null }, "No — accruing hours") +
+          el("option", { value: "1", selected: p.licensed === "1" ? "selected" : null }, "Yes — maintaining CE"))) +
+      el("div", {}, el("label", {}, "Licence number") + el("input", { id: "pLicNo", value: esc(p.licenceNo || "") }, ""))) +
+    el("div", { "class": "row", style: "margin-top:12px" },
+      el("button", { "class": "btn pri", "data-save-profile": "1" }, "Save details")));
 
   return el("h2", {}, "Requirements") +
-    el("div", { "class": "sub" }, "Mandatory topic hours, per licence. Set them once from your board's renewal page.") +
-    legalNote() + cards;
+    el("div", { "class": "sub" }, "Set your own numbers once. Everything else in the app follows them.") +
+    legalNote() +
+    el("div", { "class": "grid g2" }, form + profile);
 }
 
-function viewCerts() {
-  var rows = STATE.certs.slice().sort(function (a, b) { return String(a.expiry).localeCompare(String(b.expiry)); });
-  var head = el("tr", {},
-    el("th", {}, "Certification") + el("th", {}, "Issuer") + el("th", {}, "Number") +
-    el("th", {}, "Issued") + el("th", {}, "Expires") + el("th", {}, "Status") +
-    el("th", { style: "text-align:right" }, ""));
-  var body = listCard("Certifications", rows, function (c) {
-    var st = certStatus(c, todayISO(), 90);
-    var pill = st.state === "expired" ? el("span", { "class": "pill bad" }, "Expired")
-      : st.state === "soon" ? el("span", { "class": "pill amber" }, st.daysLeft + " days")
-      : st.state === "ok" ? el("span", { "class": "pill good" }, "Current")
-      : el("span", { "class": "pill" }, "No date");
-    return el("tr", {},
-      el("td", {}, esc(c.name) + (c.notes ? el("div", { "class": "note" }, esc(c.notes)) : "")) +
-      el("td", {}, esc(c.issuer || "—")) +
-      el("td", {}, esc(c.number || "—")) +
-      el("td", {}, esc(c.issued || "—")) +
-      el("td", {}, esc(c.expiry || "—")) +
-      el("td", {}, pill) +
-      el("td", { style: "text-align:right;white-space:nowrap" },
-        el("button", { "class": "btn sm", "data-edit-t": c.id }, "Edit") + " " +
-        el("button", { "class": "btn sm danger", "data-del-t": c.id }, "Delete")));
-  }, "Add BLS, ACLS, PALS or a specialty certification.", head);
+function viewRenewal() {
+  var cyc = currentCycle();
+  var lp = licensureProgress(STATE.entries, STATE.contacts, STATE.req, STATE.profile.startDate, todayISO());
+  var proj = projectFinish(STATE.entries, STATE.req, todayISO());
 
-  return el("h2", {}, "Certifications") +
-    el("div", { "class": "sub" }, "The cards that lapse quietly and cost you a shift. Flagged 90 days out.") +
-    el("div", { "class": "row", style: "margin-bottom:12px" },
-      el("button", { "class": "btn pri", "data-new-t": "1" }, "+ Add certification")) +
-    body;
-}
-
-function viewCalendar() {
-  var cal = renewalCalendar(STATE.licences, STATE.certs, todayISO());
-  var rows = "";
-  for (var i = 0; i < cal.length; i++) {
-    var it = cal[i];
-    var pill;
-    if (it.daysLeft === null) pill = el("span", { "class": "pill" }, "No date");
-    else if (it.daysLeft < 0) pill = el("span", { "class": "pill bad" }, Math.abs(it.daysLeft) + " days ago");
-    else if (it.daysLeft <= 90) pill = el("span", { "class": "pill amber" }, "in " + it.daysLeft + " days");
-    else pill = el("span", { "class": "pill good" }, "in " + it.daysLeft + " days");
-    rows += el("tr", {},
-      el("td", {}, esc(it.date || "—")) +
-      el("td", {}, esc(it.label) + (it.detail ? el("div", { "class": "note" }, esc(it.detail)) : "")) +
-      el("td", {}, el("span", { "class": "pill " + (it.kind === "licence" ? "blue" : "") },
-        it.kind === "licence" ? "Licence" : "Certification")) +
-      el("td", { style: "text-align:right" }, pill));
+  var byCat = {};
+  for (var i = 0; i < STATE.ce.length; i++) {
+    var row = STATE.ce[i];
+    if (row.date < cyc.cycleStart || row.date > cyc.cycleEnd) continue;
+    byCat[row.category] = (byCat[row.category] || 0) + num(row.hours);
   }
-  var head = el("tr", {},
-    el("th", {}, "Date") + el("th", {}, "What") + el("th", {}, "Kind") +
-    el("th", { style: "text-align:right" }, "When"));
-  var table = cal.length
-    ? el("div", { "class": "tblwrap" }, el("table", {}, head + rows))
-    : el("div", { "class": "empty" }, el("b", {}, "Nothing scheduled") + "Add licences and certifications.");
-
-  return el("h2", {}, "Renewal Calendar") +
-    el("div", { "class": "sub" }, "Everything with an expiry date, soonest first. Licences and cards together.") +
-    el("div", { "class": "card" }, el("h3", {}, "What expires next") + table);
-}
-
-function viewPack() {
-  if (!STATE.licences.length) {
-    return el("h2", {}, "Audit Pack") +
-      el("div", { "class": "card" }, el("div", { "class": "empty" },
-        el("b", {}, "No licences yet") + "Add a licence to build an audit pack."));
-  }
-  var sel = PACKLIC;
-  var found = false;
-  for (var i = 0; i < STATE.licences.length; i++) { if (STATE.licences[i].id === sel) found = true; }
-  if (!found) sel = STATE.licences[0].id;
-
-  var L = licenceById(sel);
-  var s = licenceStatus(L, STATE.ce, todayISO());
-  var rows = ceForLicence(STATE.ce, L).sort(function (a, b) { return String(a.date).localeCompare(String(b.date)); });
-
-  var opts = "";
-  for (var j = 0; j < STATE.licences.length; j++) {
-    var LL = STATE.licences[j];
-    opts += el("option", { value: LL.id, selected: LL.id === sel ? "selected" : null },
-      esc(LL.type + " — " + LL.state));
-  }
-
-  var ceRows = "";
-  for (var k = 0; k < rows.length; k++) {
-    ceRows += el("tr", {},
-      el("td", {}, esc(rows[k].date)) +
-      el("td", {}, esc(topicLabel(rows[k].topic))) +
-      el("td", {}, round1(num(rows[k].hours))) +
-      el("td", {}, esc(rows[k].provider || "—")) +
-      el("td", {}, rows[k].certificate === "1" ? "Yes" : "No"));
-  }
-
-  var topicRows = "";
-  for (var m = 0; m < s.topicChecks.length; m++) {
-    topicRows += el("tr", {},
-      el("td", {}, esc(s.topicChecks[m].label)) +
-      el("td", {}, s.topicChecks[m].need + " h") +
-      el("td", {}, round1(s.topicChecks[m].have) + " h") +
-      el("td", {}, s.topicChecks[m].ok ? "Met" : "Short"));
-  }
-
-  var sheet = el("div", { "class": "sheetprint", id: "packSheet" },
-    el("h4", {}, "Continuing Education Record") +
-    el("div", { "class": "psub" },
-      esc(STATE.profile.name || "—") + " · " + esc(L.type + " — " + L.state) +
-      (L.number ? " · " + esc(L.number) : "") + " · prepared " + esc(todayISO())) +
-    el("table", {},
-      el("tr", {}, el("th", {}, "Cycle") + el("td", {}, esc(s.cycleStart) + " to " + esc(s.cycleEnd))) +
-      el("tr", {}, el("th", {}, "Licence expiry") + el("td", {}, esc(s.expiry || "—"))) +
-      el("tr", {}, el("th", {}, "Hours required") + el("td", {}, s.need)) +
-      el("tr", {}, el("th", {}, "Hours logged") + el("td", {}, s.logged)) +
-      el("tr", {}, el("th", {}, "Certificates on file") + el("td", {},
-        s.unverified === 0 ? "All" : (round1(s.logged - s.unverified) + " of " + s.logged + " hours")))) +
-    (topicRows ? el("h5", {}, "Mandatory topics") +
-      el("table", {}, el("tr", {}, el("th", {}, "Topic") + el("th", {}, "Required") +
-        el("th", {}, "Logged") + el("th", {}, "Status")) + topicRows) : "") +
-    el("h5", {}, "Activities in this cycle") +
-    el("table", {},
-      el("tr", {}, el("th", {}, "Date") + el("th", {}, "Topic") + el("th", {}, "Hours") +
-        el("th", {}, "Provider") + el("th", {}, "Certificate")) + ceRows));
-
-  return el("h2", {}, "Audit Pack") +
-    el("div", { "class": "sub" }, "One licence, one printable record. This is what you send if you are audited.") +
-    el("div", { "class": "row noprint", style: "margin-bottom:12px" },
-      el("select", { "data-pack-lic": "1", style: "max-width:260px" }, opts) +
-      el("button", { "class": "btn pri", "data-print": "1" }, "Print this pack") +
-      statusPill(s)) +
-    sheet;
-}
-
-function viewReports() {
-  var ov = overallReadiness(STATE.licences, STATE.ce, todayISO());
-  var lev = leverageSummary(STATE.ce);
-
-  var rows = "";
-  for (var i = 0; i < STATE.licences.length; i++) {
-    var L = STATE.licences[i], s = ov.statuses[i];
-    rows += el("tr", {},
-      el("td", {}, esc(L.type + " — " + L.state)) +
-      el("td", {}, s.logged + " / " + s.need) +
-      el("td", {}, s.entries) +
-      el("td", {}, s.unverified) +
-      el("td", {}, s.mandatesMet ? "Met" : "Short") +
-      el("td", {}, esc(s.expiry || "—")) +
-      el("td", { style: "text-align:right" }, statusPill(s)));
-  }
-  var head = el("tr", {},
-    el("th", {}, "Licence") + el("th", {}, "CE hours") + el("th", {}, "Entries") +
-    el("th", {}, "Unverified h") + el("th", {}, "Topics") + el("th", {}, "Expiry") +
-    el("th", { style: "text-align:right" }, "Status"));
-  var table = STATE.licences.length
-    ? el("div", { "class": "tblwrap" }, el("table", {}, head + rows))
-    : el("div", { "class": "empty" }, el("b", {}, "No licences") + "Add one to build a report.");
-
-  var topicMap = hoursByTopic(STATE.ce);
-  var tRows = "";
-  var totalH = 0;
-  for (var q in topicMap) { totalH += topicMap[q]; }
-  for (var t = 0; t < TOPICS.length; t++) {
-    var v = topicMap[TOPICS[t].id] || 0;
+  var catRows = "";
+  for (var c = 0; c < CE_CATEGORIES.length; c++) {
+    var v = byCat[CE_CATEGORIES[c].id] || 0;
     if (!v) continue;
-    tRows += el("div", { "class": "barrow" },
-      el("span", { style: "font-size:12.5px" }, esc(TOPICS[t].label)) +
-      el("span", { "class": "bar" }, el("i", { style: "width:" + Math.min(100, pct(v, totalH)) + "%" }, "")) +
+    catRows += el("div", { "class": "barrow" },
+      el("span", { style: "font-size:12.5px" }, esc(CE_CATEGORIES[c].label)) +
+      el("span", { "class": "bar" }, el("i", { style: "width:" + Math.min(100, pct(v, cyc.needTotal)) + "%" }, "")) +
       el("b", {}, round1(v) + "h"));
   }
 
+  var timeline = el("div", { "class": "card" },
+    el("h3", {}, "Renewal timeline") +
+    el("div", { "class": "tblwrap" }, el("table", {},
+      el("tr", {}, el("th", {}, "Cycle started") + el("td", {}, esc(cyc.cycleStart))) +
+      el("tr", {}, el("th", {}, "Cycle ends") + el("td", {}, esc(cyc.cycleEnd))) +
+      el("tr", {}, el("th", {}, "Days remaining") + el("td", {}, cyc.daysLeft === null ? "—" : cyc.daysLeft)) +
+      el("tr", {}, el("th", {}, "CE logged") + el("td", {}, cyc.logged + " of " + cyc.needTotal + " hours")) +
+      el("tr", {}, el("th", {}, "Ethics logged") + el("td", {}, cyc.ethics + " of " + cyc.needEthics + " hours")) +
+      el("tr", {}, el("th", {}, "Hours still needed") + el("td", {}, cyc.remaining)) +
+      el("tr", {}, el("th", {}, "Pace to finish on time") + el("td", {}, cyc.perMonthNeeded === null ? "—" : cyc.perMonthNeeded + " h/month")) +
+      el("tr", {}, el("th", {}, "Certificates outstanding") + el("td", {}, cyc.unverified + " hours")))));
+
+  var readiness = el("div", { "class": "card" },
+    el("h3", {}, "Renewal readiness") +
+    el("div", { "class": "kpi " + (cyc.ready ? "" : "warn") }, cyc.ready ? "Ready" : "Not yet") +
+    el("div", { "class": "note" },
+      cyc.ready
+        ? "CE hours, ethics hours and certificates are all complete for this cycle."
+        : (!cyc.totalMet ? "Short " + cyc.remaining + " CE hours. " : "") +
+          (!cyc.ethicsMet ? "Short " + round1(Math.max(0, cyc.needEthics - cyc.ethics)) + " ethics hours. " : "") +
+          (cyc.unverified > 0 ? cyc.unverified + " hours still need a certificate." : "")) +
+    el("div", { style: "height:12px" }, "") + catRows);
+
+  var lic = STATE.profile.licensed === "1" ? null : el("div", { "class": "card" },
+    el("h3", {}, "Licensure target") +
+    el("div", { "class": "barrow" },
+      el("span", {}, "Hours") +
+      el("span", { "class": "bar" }, el("i", { style: "width:" + Math.min(100, lp.percent) + "%" }, "")) +
+      el("b", {}, round1(lp.percent) + "%")) +
+    el("p", { "class": "note" },
+      lp.metCount + " of " + lp.checks.length + " requirements met" +
+      (proj.finishISO ? " · hours target reached around " + esc(proj.finishISO) + " at " + proj.pace + " h/month" : "")));
+
+  return el("h2", {}, "Renewal") +
+    el("div", { "class": "sub" }, "What is due, when it is due, and whether you can file today.") +
+    el("div", { "class": "grid g2" }, timeline + readiness) +
+    (lic ? el("div", { style: "height:14px" }, "") + lic : "");
+}
+
+function viewPeople() {
+  var head = el("tr", {},
+    el("th", {}, "Name") + el("th", {}, "Credential") + el("th", {}, "Licence no.") +
+    el("th", {}, "Email") + el("th", {}, "Notes") + el("th", { style: "text-align:right" }, ""));
+  var body = listCard("Supervisors", STATE.supervisors, function (s) {
+    var h = 0, n = 0;
+    for (var i = 0; i < STATE.contacts.length; i++) {
+      if (STATE.contacts[i].supervisorId === s.id) { h += num(STATE.contacts[i].hours); n++; }
+    }
+    return el("tr", {},
+      el("td", {}, esc(s.name) + el("div", { "class": "note" }, n + " contacts · " + round1(h) + " h")) +
+      el("td", {}, esc(s.credential || "—")) +
+      el("td", {}, esc(s.licenceNo || "—")) +
+      el("td", {}, esc(s.email || "—")) +
+      el("td", {}, esc(s.notes || "")) +
+      el("td", { style: "text-align:right;white-space:nowrap" },
+        el("button", { "class": "btn sm", "data-edit-s": s.id }, "Edit") + " " +
+        el("button", { "class": "btn sm danger", "data-del-s": s.id }, "Delete")));
+  }, "Add the supervisor who will verify your hours.", head);
+
+  return el("h2", {}, "Supervisors") +
+    el("div", { "class": "sub" }, "Names, credentials and licence numbers — the details a board asks for.") +
+    el("div", { "class": "row", style: "margin-bottom:12px" },
+      el("button", { "class": "btn pri", "data-new-s": "1" }, "+ Add supervisor")) +
+    body;
+}
+
+function viewReports() {
+  var pace = hoursPace(STATE.entries);
+  var keys = Object.keys(pace.byPeriod).sort().reverse();
+  var rows = "";
+  for (var i = 0; i < keys.length; i++) {
+    var pe = [];
+    for (var j = 0; j < STATE.entries.length; j++) {
+      if (periodOf(STATE.entries[j].date) === keys[i]) pe.push(STATE.entries[j]);
+    }
+    var pc = [];
+    for (var k = 0; k < STATE.contacts.length; k++) {
+      if (periodOf(STATE.contacts[k].date) === keys[i]) pc.push(STATE.contacts[k]);
+    }
+    var st = supTotals(pc);
+    rows += el("tr", {},
+      el("td", {}, esc(periodLabel(keys[i]))) +
+      el("td", {}, round1(sumHours(pe))) +
+      el("td", {}, round1(directHours(pe))) +
+      el("td", {}, round1(indirectHours(pe))) +
+      el("td", {}, round1(st.total)) +
+      el("td", { style: "text-align:right" }, pc.length));
+  }
+  var head = el("tr", {},
+    el("th", {}, "Month") + el("th", {}, "Total") + el("th", {}, "Direct") +
+    el("th", {}, "Indirect") + el("th", {}, "Supervision") + el("th", { style: "text-align:right" }, "Contacts"));
+
+  var table = keys.length
+    ? el("div", { "class": "tblwrap" }, el("table", {}, head + rows))
+    : el("div", { "class": "empty" }, el("b", {}, "No data yet") + "Log hours to build a report.");
+
+  var lp = licensureProgress(STATE.entries, STATE.contacts, STATE.req, STATE.profile.startDate, todayISO());
+  var cyc = currentCycle();
+
+  var sheet = el("div", { "class": "sheetprint", id: "printSheet" },
+    el("h4", {}, "Licensure and CE Summary") +
+    el("div", { "class": "psub" },
+      esc(STATE.profile.name || "—") + " · prepared " + esc(todayISO()) +
+      (STATE.req.stateName ? " · " + esc(STATE.req.stateName) : "") +
+      (STATE.req.licenceType ? " · " + esc(STATE.req.licenceType) : "")) +
+    el("table", {},
+      el("tr", {}, el("th", {}, "Experience start") + el("td", {}, esc(STATE.profile.startDate || "—"))) +
+      el("tr", {}, el("th", {}, "Total hours") + el("td", {}, round1(lp.total) + " of " + num(STATE.req.totalHours))) +
+      el("tr", {}, el("th", {}, "Direct client hours") + el("td", {}, round1(lp.direct) + " of " + num(STATE.req.directHours))) +
+      el("tr", {}, el("th", {}, "Indirect hours") + el("td", {}, round1(lp.indirect))) +
+      el("tr", {}, el("th", {}, "Supervision hours") + el("td", {}, round1(lp.supervision.total) + " of " + num(STATE.req.supervisionHours))) +
+      el("tr", {}, el("th", {}, "Individual supervision") + el("td", {}, round1(lp.supervision.individualPct) + "%")) +
+      el("tr", {}, el("th", {}, "Months elapsed") + el("td", {}, lp.months + " of " + num(STATE.req.minMonths))) +
+      el("tr", {}, el("th", {}, "CE this cycle") + el("td", {}, cyc.logged + " of " + cyc.needTotal + " hours (" + cyc.ethics + " ethics)"))) +
+    el("div", { "class": "sigline" },
+      el("div", {}, "Applicant signature and date") +
+      el("div", {}, "Supervisor signature, credential and date")));
+
   return el("h2", {}, "Reports") +
-    el("div", { "class": "sub" }, "Every licence side by side, your topic mix, and a backup you control.") +
-    el("div", { "class": "card" }, el("h3", {}, "All licences") + table) +
-    el("div", { style: "height:14px" }, "") +
-    el("div", { "class": "grid g2" },
-      el("div", { "class": "card" },
-        el("h3", {}, "Hours by topic") + (tRows || el("div", { "class": "empty" }, "No CE logged yet")) +
-        el("p", { "class": "note" },
-          lev.sat + " hours actually sat · " + lev.delivered + " hours of credit across licences")) +
-      el("div", { "class": "card" },
-        el("h3", {}, "Backup and export") +
-        el("p", { "class": "hint" }, "Everything stays on this computer. Export a backup before you clear browser data.") +
-        el("div", { "class": "row" },
-          el("button", { "class": "btn pri", "data-export-json": "1" }, "Download backup") +
-          el("button", { "class": "btn", "data-export-csv": "1" }, "Export CE CSV") +
-          el("button", { "class": "btn", "data-import": "1" }, "Restore backup") +
-          el("button", { "class": "btn danger", "data-reset": "1" }, "Start empty")) +
-        el("input", { type: "file", id: "importFile", accept: ".json", style: "display:none" }, "")));
+    el("div", { "class": "sub" }, "Month-by-month totals, a printable summary, and a backup you control.") +
+    el("div", { "class": "row noprint", style: "margin-bottom:12px" },
+      el("button", { "class": "btn pri", "data-print": "1" }, "Print summary") +
+      el("button", { "class": "btn", "data-export-json": "1" }, "Download backup") +
+      el("button", { "class": "btn", "data-export-csv": "1" }, "Export hours CSV") +
+      el("button", { "class": "btn", "data-export-ce": "1" }, "Export CE CSV") +
+      el("button", { "class": "btn", "data-import": "1" }, "Restore backup") +
+      el("button", { "class": "btn danger", "data-reset": "1" }, "Start empty") +
+      el("input", { type: "file", id: "importFile", accept: ".json", style: "display:none" }, "")) +
+    el("div", { "class": "card noprint" }, el("h3", {}, "By month") + table) +
+    el("div", { style: "height:14px" }, "") + sheet;
 }
 
 /* ---------- MODALS ---------- */
 
-function modalLicence() {
-  var L = null;
-  if (EDIT) { L = licenceById(EDIT); }
-  L = L || { type: "RN", state: "", number: "", compact: "0", cycleStart: todayISO(),
-             cycleMonths: 24, ceHours: 30, expiry: "", mandates: [], notes: "" };
-  var popts = "";
-  for (var i = 0; i < LICENCE_PRESETS.length; i++) {
-    popts += el("option", { value: LICENCE_PRESETS[i].id }, esc(LICENCE_PRESETS[i].label));
-  }
+function modalHours() {
+  var e = null;
+  if (EDIT) { for (var i = 0; i < STATE.entries.length; i++) { if (STATE.entries[i].id === EDIT) e = STATE.entries[i]; } }
+  e = e || { date: todayISO(), kind: "direct", hours: "", supervisorId: "", notes: "" };
   return el("div", { "class": "sheet" },
-    el("h3", {}, EDIT ? "Edit licence" : "Add licence") +
+    el("h3", {}, EDIT ? "Edit hours" : "Add experience hours") +
     el("div", { "class": "fgrid" },
-      el("div", {}, el("label", {}, "Licence type") + el("select", { id: "lType" }, typeOptions(L.type))) +
-      el("div", {}, el("label", {}, "State") + el("input", { id: "lState", value: esc(L.state) }, "")) +
-      el("div", {}, el("label", {}, "Licence number") + el("input", { id: "lNumber", value: esc(L.number || "") }, "")) +
-      el("div", {}, el("label", {}, "Compact licence?") +
-        el("select", { id: "lCompact" },
-          el("option", { value: "0", selected: L.compact !== "1" ? "selected" : null }, "No") +
-          el("option", { value: "1", selected: L.compact === "1" ? "selected" : null }, "Yes"))) +
-      el("div", { style: "grid-column:1/-1" }, el("label", {}, "Quick preset") +
-        el("select", { id: "lPreset" }, popts)) +
-      el("div", {}, el("label", {}, "Cycle start") + el("input", { id: "lCycleStart", type: "date", value: esc(L.cycleStart) }, "")) +
-      el("div", {}, el("label", {}, "Cycle length (months)") + el("input", { id: "lCycleMonths", type: "number", min: "1", value: esc(L.cycleMonths) }, "")) +
-      el("div", {}, el("label", {}, "CE hours required") + el("input", { id: "lCeHours", type: "number", min: "0", step: "0.5", value: esc(L.ceHours) }, "")) +
-      el("div", {}, el("label", {}, "Licence expires") + el("input", { id: "lExpiry", type: "date", value: esc(L.expiry || "") }, "")) +
-      el("div", { style: "grid-column:1/-1" }, el("label", {}, "Notes") + el("textarea", { id: "lNotes" }, esc(L.notes || "")))) +
-    el("p", { "class": "hint", style: "margin-top:10px" },
-      "The preset only fills cycle length and hours. Correct both against your board, then set " +
-      "mandatory topics on the Requirements tab.") +
-    el("div", { "class": "row", style: "margin-top:8px;justify-content:flex-end" },
+      el("div", {}, el("label", {}, "Date") + el("input", { id: "fDate", type: "date", value: esc(e.date) }, "")) +
+      el("div", {}, el("label", {}, "Hours") + el("input", { id: "fHours", type: "number", step: "0.25", min: "0", value: esc(e.hours) }, "")) +
+      el("div", { style: "grid-column:1/-1" }, el("label", {}, "Activity") + el("select", { id: "fKind" }, kindOptions(e.kind))) +
+      el("div", { style: "grid-column:1/-1" }, el("label", {}, "Supervisor") + el("select", { id: "fSup" }, supervisorOptions(e.supervisorId))) +
+      el("div", { style: "grid-column:1/-1" }, el("label", {}, "Notes") + el("textarea", { id: "fNotes" }, esc(e.notes || "")))) +
+    el("div", { "class": "row", style: "margin-top:14px;justify-content:flex-end" },
       el("button", { "class": "btn", "data-close": "1" }, "Cancel") +
-      el("button", { "class": "btn", "data-apply-lpreset": "1" }, "Fill from preset") +
-      el("button", { "class": "btn pri", "data-save-l": "1" }, "Save")));
+      el("button", { "class": "btn pri", "data-save-h": "1" }, "Save")));
+}
+
+function modalContact() {
+  var c = null;
+  if (EDIT) { for (var i = 0; i < STATE.contacts.length; i++) { if (STATE.contacts[i].id === EDIT) c = STATE.contacts[i]; } }
+  c = c || { date: todayISO(), type: "individual", hours: "", supervisorId: "", notes: "" };
+  return el("div", { "class": "sheet" },
+    el("h3", {}, EDIT ? "Edit contact" : "Add supervision contact") +
+    el("div", { "class": "fgrid" },
+      el("div", {}, el("label", {}, "Date") + el("input", { id: "cDate", type: "date", value: esc(c.date) }, "")) +
+      el("div", {}, el("label", {}, "Hours") + el("input", { id: "cHours", type: "number", step: "0.25", min: "0", value: esc(c.hours) }, "")) +
+      el("div", {}, el("label", {}, "Type") +
+        el("select", { id: "cType" },
+          el("option", { value: "individual", selected: c.type === "individual" ? "selected" : null }, "Individual") +
+          el("option", { value: "group", selected: c.type === "group" ? "selected" : null }, "Group"))) +
+      el("div", {}, el("label", {}, "Supervisor") + el("select", { id: "cSup" }, supervisorOptions(c.supervisorId))) +
+      el("div", { style: "grid-column:1/-1" }, el("label", {}, "Notes") + el("textarea", { id: "cNotes" }, esc(c.notes || "")))) +
+    el("div", { "class": "row", style: "margin-top:14px;justify-content:flex-end" },
+      el("button", { "class": "btn", "data-close": "1" }, "Cancel") +
+      el("button", { "class": "btn pri", "data-save-c": "1" }, "Save")));
 }
 
 function modalCE() {
   var r = null;
   if (EDIT) { for (var i = 0; i < STATE.ce.length; i++) { if (STATE.ce[i].id === EDIT) r = STATE.ce[i]; } }
-  r = r || { date: todayISO(), topic: "general", hours: "", provider: "", certificate: "0",
-             licences: [], notes: "" };
-  var checks = "";
-  for (var j = 0; j < STATE.licences.length; j++) {
-    var L = STATE.licences[j];
-    var on = false;
-    var list = r.licences || [];
-    for (var k = 0; k < list.length; k++) { if (list[k] === L.id) on = true; }
-    checks += el("label", { "class": "checkrow" },
-      el("input", { type: "checkbox", "data-lic-check": L.id, checked: on ? "checked" : null }, "") +
-      el("span", {}, esc(L.type + " — " + L.state) +
-        (L.number ? " (" + esc(L.number) + ")" : "")));
-  }
-  if (!STATE.licences.length) {
-    checks = el("p", { "class": "hint" }, "Add a licence first, then CE can be assigned to it.");
-  }
+  r = r || { date: todayISO(), category: "clinical", hours: "", provider: "", certificate: "0", notes: "" };
   return el("div", { "class": "sheet" },
     el("h3", {}, EDIT ? "Edit CE entry" : "Add CE entry") +
     el("div", { "class": "fgrid" },
       el("div", {}, el("label", {}, "Date") + el("input", { id: "eDate", type: "date", value: esc(r.date) }, "")) +
       el("div", {}, el("label", {}, "Hours") + el("input", { id: "eHours", type: "number", step: "0.25", min: "0", value: esc(r.hours) }, "")) +
-      el("div", {}, el("label", {}, "Topic") + el("select", { id: "eTopic" }, topicOptions(r.topic))) +
+      el("div", {}, el("label", {}, "Category") + el("select", { id: "eCat" }, ceOptions(r.category))) +
       el("div", {}, el("label", {}, "Certificate on file?") +
         el("select", { id: "eCert" },
           el("option", { value: "0", selected: r.certificate !== "1" ? "selected" : null }, "No") +
           el("option", { value: "1", selected: r.certificate === "1" ? "selected" : null }, "Yes"))) +
       el("div", { style: "grid-column:1/-1" }, el("label", {}, "Provider") + el("input", { id: "eProv", value: esc(r.provider || "") }, "")) +
       el("div", { style: "grid-column:1/-1" }, el("label", {}, "Notes") + el("textarea", { id: "eNotes" }, esc(r.notes || "")))) +
-    el("div", { style: "margin-top:12px" },
-      el("label", {}, "Counts toward which licences?") + checks) +
-    el("div", { "class": "row", style: "margin-top:12px;justify-content:flex-end" },
+    el("div", { "class": "row", style: "margin-top:14px;justify-content:flex-end" },
       el("button", { "class": "btn", "data-close": "1" }, "Cancel") +
       el("button", { "class": "btn pri", "data-save-e": "1" }, "Save")));
 }
 
-function modalCert() {
-  var c = null;
-  if (EDIT) { for (var i = 0; i < STATE.certs.length; i++) { if (STATE.certs[i].id === EDIT) c = STATE.certs[i]; } }
-  c = c || { name: "", issuer: "", number: "", issued: todayISO(), expiry: "", notes: "" };
+function modalSupervisor() {
+  var s = null;
+  if (EDIT) { for (var i = 0; i < STATE.supervisors.length; i++) { if (STATE.supervisors[i].id === EDIT) s = STATE.supervisors[i]; } }
+  s = s || { name: "", credential: "", licenceNo: "", email: "", notes: "" };
   return el("div", { "class": "sheet" },
-    el("h3", {}, EDIT ? "Edit certification" : "Add certification") +
+    el("h3", {}, EDIT ? "Edit supervisor" : "Add supervisor") +
     el("div", { "class": "fgrid" },
-      el("div", { style: "grid-column:1/-1" }, el("label", {}, "Name") + el("input", { id: "tName", value: esc(c.name) }, "")) +
-      el("div", {}, el("label", {}, "Issuer") + el("input", { id: "tIssuer", value: esc(c.issuer || "") }, "")) +
-      el("div", {}, el("label", {}, "Number") + el("input", { id: "tNumber", value: esc(c.number || "") }, "")) +
-      el("div", {}, el("label", {}, "Issued") + el("input", { id: "tIssued", type: "date", value: esc(c.issued || "") }, "")) +
-      el("div", {}, el("label", {}, "Expires") + el("input", { id: "tExpiry", type: "date", value: esc(c.expiry || "") }, "")) +
-      el("div", { style: "grid-column:1/-1" }, el("label", {}, "Notes") + el("textarea", { id: "tNotes" }, esc(c.notes || "")))) +
+      el("div", { style: "grid-column:1/-1" }, el("label", {}, "Name") + el("input", { id: "sName", value: esc(s.name) }, "")) +
+      el("div", {}, el("label", {}, "Credential") + el("input", { id: "sCred", value: esc(s.credential || "") }, "")) +
+      el("div", {}, el("label", {}, "Licence number") + el("input", { id: "sLic", value: esc(s.licenceNo || "") }, "")) +
+      el("div", { style: "grid-column:1/-1" }, el("label", {}, "Email") + el("input", { id: "sEmail", value: esc(s.email || "") }, "")) +
+      el("div", { style: "grid-column:1/-1" }, el("label", {}, "Notes") + el("textarea", { id: "sNotes" }, esc(s.notes || "")))) +
     el("div", { "class": "row", style: "margin-top:14px;justify-content:flex-end" },
       el("button", { "class": "btn", "data-close": "1" }, "Cancel") +
-      el("button", { "class": "btn pri", "data-save-t": "1" }, "Save")));
+      el("button", { "class": "btn pri", "data-save-s": "1" }, "Save")));
 }
 
 /* ---------- RENDER ---------- */
@@ -990,17 +1095,18 @@ function render() {
 
   var html = "";
   if (VIEW === "dash") html = viewDash();
-  else if (VIEW === "licences") html = viewLicences();
+  else if (VIEW === "hours") html = viewHours();
+  else if (VIEW === "supervision") html = viewSupervision();
   else if (VIEW === "ce") html = viewCE();
-  else if (VIEW === "topics") html = viewTopics();
-  else if (VIEW === "certs") html = viewCerts();
-  else if (VIEW === "calendar") html = viewCalendar();
-  else if (VIEW === "pack") html = viewPack();
+  else if (VIEW === "requirements") html = viewRequirements();
+  else if (VIEW === "renewal") html = viewRenewal();
+  else if (VIEW === "people") html = viewPeople();
   else if (VIEW === "reports") html = viewReports();
 
-  if (MODAL === "licence") html += el("div", { "class": "modal", "data-modal": "1" }, modalLicence());
+  if (MODAL === "hours") html += el("div", { "class": "modal", "data-modal": "1" }, modalHours());
+  else if (MODAL === "contact") html += el("div", { "class": "modal", "data-modal": "1" }, modalContact());
   else if (MODAL === "ce") html += el("div", { "class": "modal", "data-modal": "1" }, modalCE());
-  else if (MODAL === "cert") html += el("div", { "class": "modal", "data-modal": "1" }, modalCert());
+  else if (MODAL === "supervisor") html += el("div", { "class": "modal", "data-modal": "1" }, modalSupervisor());
 
   document.getElementById("app").innerHTML = html;
 }
@@ -1037,68 +1143,46 @@ document.addEventListener("click", function (ev) {
   if (g("data-close") || (g("data-modal") && t.className === "modal")) { MODAL = null; EDIT = null; render(); return; }
   if (g("data-print")) { window.print(); return; }
 
-  /* licences */
-  if (g("data-new-l")) { MODAL = "licence"; EDIT = null; render(); return; }
-  if (g("data-edit-l")) { MODAL = "licence"; EDIT = g("data-edit-l"); render(); return; }
-  if (g("data-del-l")) {
-    var idl = g("data-del-l");
-    if (confirm("Delete this licence? CE entries stay but lose this assignment.")) {
-      STATE.licences = STATE.licences.filter(function (x) { return x.id !== idl; });
-      for (var i = 0; i < STATE.ce.length; i++) {
-        STATE.ce[i].licences = (STATE.ce[i].licences || []).filter(function (x) { return x !== idl; });
-      }
+  if (g("data-new-h")) { MODAL = "hours"; EDIT = null; render(); return; }
+  if (g("data-edit-h")) { MODAL = "hours"; EDIT = g("data-edit-h"); render(); return; }
+  if (g("data-del-h")) {
+    var idh = g("data-del-h");
+    if (confirm("Delete this entry?")) {
+      STATE.entries = STATE.entries.filter(function (x) { return x.id !== idh; });
       save(); render();
     }
     return;
   }
-  if (g("data-apply-lpreset")) {
-    var pid = val("lPreset");
-    for (var p = 0; p < LICENCE_PRESETS.length; p++) {
-      if (LICENCE_PRESETS[p].id === pid) {
-        var cm = document.getElementById("lCycleMonths");
-        var ch = document.getElementById("lCeHours");
-        if (cm) cm.value = LICENCE_PRESETS[p].cycleMonths;
-        if (ch) ch.value = LICENCE_PRESETS[p].ceHours;
-      }
-    }
-    return;
-  }
-  if (g("data-save-l")) {
-    var st = val("lState").trim();
-    if (!st) { alert("Which state issued this licence?"); return; }
-    var existing = EDIT ? licenceById(EDIT) : null;
-    var lrec = {
-      id: EDIT || uid(), type: val("lType"), state: st, number: val("lNumber"),
-      compact: val("lCompact"), cycleStart: val("lCycleStart") || todayISO(),
-      cycleMonths: num(val("lCycleMonths")) || 24, ceHours: num(val("lCeHours")),
-      expiry: val("lExpiry"), mandates: existing ? (existing.mandates || []) : [],
-      notes: val("lNotes")
-    };
-    if (EDIT) { STATE.licences = STATE.licences.map(function (x) { return x.id === EDIT ? lrec : x; }); }
-    else { STATE.licences.push(lrec); }
+  if (g("data-save-h")) {
+    var hv = num(val("fHours"));
+    if (hv <= 0) { alert("Enter how many hours."); return; }
+    var hrec = { id: EDIT || uid(), date: val("fDate") || todayISO(), kind: val("fKind"),
+                 hours: hv, supervisorId: val("fSup"), notes: val("fNotes") };
+    if (EDIT) { STATE.entries = STATE.entries.map(function (x) { return x.id === EDIT ? hrec : x; }); }
+    else { if(demoLimitReached()) return; STATE.entries.push(hrec); }
     MODAL = null; EDIT = null; save(); render(); return;
   }
 
-  /* mandatory topics */
-  if (g("data-add-m")) {
-    var lid = g("data-add-m");
-    var L = licenceById(lid);
-    if (!L) return;
-    var topic = val("mt_" + lid);
-    var hours = num(val("mh_" + lid));
-    if (hours <= 0) { alert("How many hours are required for that topic?"); return; }
-    if (!L.mandates) L.mandates = [];
-    L.mandates.push({ topic: topic, hours: hours });
-    save(); render(); return;
-  }
-  if (g("data-del-m")) {
-    var parts = g("data-del-m").split("|");
-    var L2 = licenceById(parts[0]);
-    if (L2 && L2.mandates) { L2.mandates.splice(Number(parts[1]), 1); save(); render(); }
+  if (g("data-new-c")) { MODAL = "contact"; EDIT = null; render(); return; }
+  if (g("data-edit-c")) { MODAL = "contact"; EDIT = g("data-edit-c"); render(); return; }
+  if (g("data-del-c")) {
+    var idc = g("data-del-c");
+    if (confirm("Delete this contact?")) {
+      STATE.contacts = STATE.contacts.filter(function (x) { return x.id !== idc; });
+      save(); render();
+    }
     return;
   }
+  if (g("data-save-c")) {
+    var cv = num(val("cHours"));
+    if (cv <= 0) { alert("Enter the duration in hours."); return; }
+    var crec = { id: EDIT || uid(), date: val("cDate") || todayISO(), type: val("cType"),
+                 hours: cv, supervisorId: val("cSup"), notes: val("cNotes") };
+    if (EDIT) { STATE.contacts = STATE.contacts.map(function (x) { return x.id === EDIT ? crec : x; }); }
+    else { STATE.contacts.push(crec); }
+    MODAL = null; EDIT = null; save(); render(); return;
+  }
 
-  /* CE */
   if (g("data-new-e")) { MODAL = "ce"; EDIT = null; render(); return; }
   if (g("data-edit-e")) { MODAL = "ce"; EDIT = g("data-edit-e"); render(); return; }
   if (g("data-del-e")) {
@@ -1110,61 +1194,97 @@ document.addEventListener("click", function (ev) {
     return;
   }
   if (g("data-save-e")) {
-    var eh = num(val("eHours"));
-    if (eh <= 0) { alert("Enter the CE hours."); return; }
-    var boxes = document.querySelectorAll("[data-lic-check]");
-    var lics = [];
-    for (var b = 0; b < boxes.length; b++) {
-      if (boxes[b].checked) lics.push(boxes[b].getAttribute("data-lic-check"));
-    }
-    if (!lics.length && STATE.licences.length) {
-      if (!confirm("This entry is not assigned to any licence, so it will not count anywhere. Save anyway?")) return;
-    }
-    var erec = { id: EDIT || uid(), date: val("eDate") || todayISO(), topic: val("eTopic"),
-                 hours: eh, provider: val("eProv"), certificate: val("eCert"),
-                 licences: lics, notes: val("eNotes") };
+    var ev2 = num(val("eHours"));
+    if (ev2 <= 0) { alert("Enter the CE hours."); return; }
+    var erec = { id: EDIT || uid(), date: val("eDate") || todayISO(), category: val("eCat"),
+                 hours: ev2, provider: val("eProv"), certificate: val("eCert"), notes: val("eNotes") };
     if (EDIT) { STATE.ce = STATE.ce.map(function (x) { return x.id === EDIT ? erec : x; }); }
-    else { if(demoLimitReached()) return; STATE.ce.push(erec); }
+    else { STATE.ce.push(erec); }
     MODAL = null; EDIT = null; save(); render(); return;
   }
 
-  /* certifications */
-  if (g("data-new-t")) { MODAL = "cert"; EDIT = null; render(); return; }
-  if (g("data-edit-t")) { MODAL = "cert"; EDIT = g("data-edit-t"); render(); return; }
-  if (g("data-del-t")) {
-    var idt = g("data-del-t");
-    if (confirm("Delete this certification?")) {
-      STATE.certs = STATE.certs.filter(function (x) { return x.id !== idt; });
+  if (g("data-new-s")) { MODAL = "supervisor"; EDIT = null; render(); return; }
+  if (g("data-edit-s")) { MODAL = "supervisor"; EDIT = g("data-edit-s"); render(); return; }
+  if (g("data-del-s")) {
+    var ids = g("data-del-s");
+    if (confirm("Delete this supervisor? Logged hours stay, but lose the name.")) {
+      STATE.supervisors = STATE.supervisors.filter(function (x) { return x.id !== ids; });
       save(); render();
     }
     return;
   }
-  if (g("data-save-t")) {
-    var nm = val("tName").trim();
-    if (!nm) { alert("Give the certification a name."); return; }
-    var trec = { id: EDIT || uid(), name: nm, issuer: val("tIssuer"), number: val("tNumber"),
-                 issued: val("tIssued"), expiry: val("tExpiry"), notes: val("tNotes") };
-    if (EDIT) { STATE.certs = STATE.certs.map(function (x) { return x.id === EDIT ? trec : x; }); }
-    else { STATE.certs.push(trec); }
+  if (g("data-save-s")) {
+    var nm = val("sName").trim();
+    if (!nm) { alert("Give the supervisor a name."); return; }
+    var srec = { id: EDIT || uid(), name: nm, credential: val("sCred"),
+                 licenceNo: val("sLic"), email: val("sEmail"), notes: val("sNotes") };
+    if (EDIT) { STATE.supervisors = STATE.supervisors.map(function (x) { return x.id === EDIT ? srec : x; }); }
+    else { STATE.supervisors.push(srec); }
     MODAL = null; EDIT = null; save(); render(); return;
   }
 
-  /* reports */
+  if (g("data-apply-preset")) {
+    var pid = val("rPreset");
+    for (var p = 0; p < PRESETS.length; p++) {
+      if (PRESETS[p].id === pid) {
+        STATE.req.presetId = pid;
+        STATE.req.totalHours = PRESETS[p].totalHours;
+        STATE.req.directHours = PRESETS[p].directHours;
+        STATE.req.supervisionHours = PRESETS[p].supervisionHours;
+        STATE.req.individualPct = PRESETS[p].individualPct;
+        STATE.req.minMonths = PRESETS[p].minMonths;
+        STATE.req.ceHoursPerCycle = PRESETS[p].ceHoursPerCycle;
+        STATE.req.ceEthicsHours = PRESETS[p].ceEthicsHours;
+        STATE.req.cycleMonths = PRESETS[p].cycleMonths;
+      }
+    }
+    save(); render(); return;
+  }
+  if (g("data-save-req")) {
+    STATE.req.presetId = val("rPreset");
+    STATE.req.stateName = val("rState");
+    STATE.req.licenceType = val("rType");
+    STATE.req.totalHours = num(val("rTotal"));
+    STATE.req.directHours = num(val("rDirect"));
+    STATE.req.supervisionHours = num(val("rSup"));
+    STATE.req.individualPct = num(val("rIndiv"));
+    STATE.req.minMonths = num(val("rMonths"));
+    STATE.req.ceHoursPerCycle = num(val("rCE"));
+    STATE.req.ceEthicsHours = num(val("rEthics"));
+    STATE.req.cycleMonths = num(val("rCycle"));
+    save(); render(); return;
+  }
+  if (g("data-save-profile")) {
+    STATE.profile.name = val("pName");
+    STATE.profile.startDate = val("pStart");
+    STATE.profile.cycleStart = val("pCycle");
+    STATE.profile.licensed = val("pLicensed");
+    STATE.profile.licenceNo = val("pLicNo");
+    save(); render(); return;
+  }
+
   if (g("data-export-json")) {
-    download("nurse-ce-backup-" + todayISO() + ".json", JSON.stringify(STATE, null, 2));
+    download("licensure-backup-" + todayISO() + ".json", JSON.stringify(STATE, null, 2));
     return;
   }
   if (g("data-export-csv")) {
-    var rows = [["Date", "Topic", "Hours", "Provider", "Certificate on file", "Counts toward", "Notes"]];
-    var cs = STATE.ce.slice().sort(function (a, b) { return String(a.date).localeCompare(String(b.date)); });
-    for (var i2 = 0; i2 < cs.length; i2++) {
-      var names = [];
-      var ll = cs[i2].licences || [];
-      for (var j2 = 0; j2 < ll.length; j2++) names.push(licenceLabel(ll[j2]));
-      rows.push([cs[i2].date, topicLabel(cs[i2].topic), cs[i2].hours, cs[i2].provider || "",
-        cs[i2].certificate === "1" ? "Yes" : "No", names.join(" / "), cs[i2].notes || ""]);
+    var rows = [["Date", "Activity", "Direct", "Hours", "Supervisor", "Notes"]];
+    var sorted = STATE.entries.slice().sort(function (a, b) { return String(a.date).localeCompare(String(b.date)); });
+    for (var i = 0; i < sorted.length; i++) {
+      rows.push([sorted[i].date, kindLabel(sorted[i].kind), isDirect(sorted[i].kind) ? "Yes" : "No",
+        sorted[i].hours, supervisorName(sorted[i].supervisorId), sorted[i].notes || ""]);
     }
-    download("ce-log-" + todayISO() + ".csv", toCSV(rows), "text/csv");
+    download("experience-hours-" + todayISO() + ".csv", toCSV(rows), "text/csv");
+    return;
+  }
+  if (g("data-export-ce")) {
+    var crows = [["Date", "Category", "Hours", "Provider", "Certificate on file", "Notes"]];
+    var cs = STATE.ce.slice().sort(function (a, b) { return String(a.date).localeCompare(String(b.date)); });
+    for (var j = 0; j < cs.length; j++) {
+      crows.push([cs[j].date, ceCatLabel(cs[j].category), cs[j].hours, cs[j].provider || "",
+        cs[j].certificate === "1" ? "Yes" : "No", cs[j].notes || ""]);
+    }
+    download("ce-log-" + todayISO() + ".csv", toCSV(crows), "text/csv");
     return;
   }
   if (g("data-reset")) {
@@ -1182,20 +1302,19 @@ document.addEventListener("click", function (ev) {
 
 document.addEventListener("change", function (ev) {
   var t = ev.target;
-  if (t && t.getAttribute && t.getAttribute("data-pack-lic") !== null) {
-    PACKLIC = t.value; render(); return;
-  }
   if (t && t.id === "importFile" && t.files && t.files[0]) {
     var reader = new FileReader();
     reader.onload = function (e) {
       try {
         var obj = JSON.parse(e.target.result);
-        if (!obj || !obj.licences) throw new Error("bad file");
+        if (!obj || !obj.entries) throw new Error("bad file");
         STATE = obj;
         if (!STATE.settings) STATE.settings = { dark: "0" };
+        if (!STATE.contacts) STATE.contacts = [];
         if (!STATE.ce) STATE.ce = [];
-        if (!STATE.certs) STATE.certs = [];
-        if (!STATE.profile) STATE.profile = { name: "" };
+        if (!STATE.supervisors) STATE.supervisors = [];
+        if (!STATE.req) STATE.req = defaultReq();
+        if (!STATE.profile) STATE.profile = blank().profile;
         save(); render();
       } catch (err) { alert("That file could not be read as a backup."); }
     };
